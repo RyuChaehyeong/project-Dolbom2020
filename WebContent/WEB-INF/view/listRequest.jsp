@@ -73,7 +73,7 @@ th>.truncate, td>.truncate{
 			<h2><i class="far fa-list-alt"></i> 돌봄 요청 목록</h2>
 		</div>
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 50px;">
-		<a href="${root }/request/write.do" class="btn btn-outline-danger btn-lg" style="margin-top: 30px" role="button">
+		<a href="${root }/request/write.do" class="btn btn-outline-danger btn-lg" style="margin-top: 30px;" role="button">
 		돌봄요청글 작성</a>
 		</div>
 	<table class="table table-hover">

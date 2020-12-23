@@ -182,4 +182,15 @@ public class RequestDao {
 		
 	}
 
+	public void delete(Connection conn, int reqNo) throws SQLException {
+		String sql = "DELETE FROM request "
+				+ "WHERE req_no=?";
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, reqNo);
+			pstmt.executeUpdate();
+		}
+		
+	}
+
 }

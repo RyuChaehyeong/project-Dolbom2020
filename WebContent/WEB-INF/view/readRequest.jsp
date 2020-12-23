@@ -37,7 +37,7 @@ $(function() {
 		var c = confirm("삭제하시겠습니까?");
 		if (c) {
 			var c2 = confirm("삭제되었습니다.");
-			location.href="${root }/request/remove.do";
+			location.href="${root }/request/remove.do?no={param.no}";
 		}
 	});
 	remove-btn
@@ -140,7 +140,7 @@ $(function() {
 			<c:if test="${fn:trim(request.writer_id)==fn:trim(authUser.member_id)}">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-top: 70px;">
 				<button class="btn btn-light" id="modify-btn" style="margin-right: 10px;">수정</button>
-				<a href="${root }/request/remove.do" id="remove-btn" class="btn btn-light" style="margin-left: 10px;">삭제</a>
+				<a href="${root }/request/remove.do?no=${request.reqNo }" id="remove-btn" class="btn btn-light" style="margin-left: 10px;">삭제</a>
 			</div>
 
 			</c:if>
