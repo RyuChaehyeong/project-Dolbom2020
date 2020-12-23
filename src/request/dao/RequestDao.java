@@ -11,6 +11,7 @@ import java.util.List;
 import jdbc.JdbcUtil;
 import request.service.ModifyRequest;
 import request.service.Request;
+import request.service.SearchRequest;
 
 public class RequestDao {
 
@@ -192,5 +193,147 @@ public class RequestDao {
 		}
 		
 	}
+
+	public List<Request> selectSearchAni(Connection conn, int pageNo, int size, SearchRequest searchReq) throws SQLException {
+		String sql = "SELECT "
+				+ "rn, "
+				+ "req_no, "
+				+ "title, "
+				+ "start_date, "
+				+ "end_date, "
+				+ "location, "
+				+ "animal, "
+				+ "writer_id, "
+				+ "info "
+				+ "FROM ("
+				+ "	SELECT req_no, "
+				+ " 		   title, "
+				+ "       start_date, "
+				+ "        end_date, "
+				+ "        location, "
+				+ "      	animal, "
+				+ "        writer_id, "
+				+ "			info, "
+				+ "        ROW_NUMBER() "
+				+ "          OVER ( "
+				+ "            ORDER BY "
+				+ "            req_no "
+				+ "            DESC) "
+				+ "        rn "
+				+ "  FROM request "
+				+ "WHERE animal LIKE ? "
+				+ ") WHERE rn  BETWEEN ? AND ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchReq.getWord()+"%");
+			pstmt.setInt(2, (pageNo-1) * size + 1);
+			pstmt.setInt(3, pageNo * size);
+			
+			rs = pstmt.executeQuery();
+			List<Request> result = new ArrayList<Request>();
+			while (rs.next()) {
+				result.add(convertRequest(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	public int selectCountSearchAni(Connection conn, SearchRequest searchReq) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT COUNT(*) FROM request WHERE animal LIKE ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchReq.getWord()+"%");
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+		
+		
+	}
+
+	public List<Request> selectSearchLoc(Connection conn, int pageNo, int size, SearchRequest searchReq) throws SQLException {
+		String sql = "SELECT "
+				+ "rn, "
+				+ "req_no, "
+				+ "title, "
+				+ "start_date, "
+				+ "end_date, "
+				+ "location, "
+				+ "animal, "
+				+ "writer_id, "
+				+ "info "
+				+ "FROM ("
+				+ "	SELECT req_no, "
+				+ " 		   title, "
+				+ "       start_date, "
+				+ "        end_date, "
+				+ "        location, "
+				+ "      	animal, "
+				+ "        writer_id, "
+				+ "			info, "
+				+ "        ROW_NUMBER() "
+				+ "          OVER ( "
+				+ "            ORDER BY "
+				+ "            req_no "
+				+ "            DESC) "
+				+ "        rn "
+				+ "  FROM request "
+				+ "WHERE location LIKE ? "
+				+ ") WHERE rn  BETWEEN ? AND ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchReq.getWord()+"%");
+			pstmt.setInt(2, (pageNo-1) * size + 1);
+			pstmt.setInt(3, pageNo * size);
+			
+			rs = pstmt.executeQuery();
+			List<Request> result = new ArrayList<Request>();
+			while (rs.next()) {
+				result.add(convertRequest(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	public int selectCountSearchLoc(Connection conn, SearchRequest searchReq) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT COUNT(*) FROM request WHERE location LIKE ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchReq.getWord()+"%");
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+	
+
 
 }

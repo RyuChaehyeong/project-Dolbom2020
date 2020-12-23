@@ -82,11 +82,12 @@ th>.truncate, td>.truncate{
 		돌봄요청글 작성</a>
 		</div>
 		<div style="margin-bottom: 20px; margin-left: 20px;">
-			<h4>총 요청 수: ${total }개</h4>
+			<h4>검색 결과: ${total }개</h4>
 		</div>
 	<table class="table table-hover">
 	  <thead>
-		
+	 
+	
 		<tr>
 			<th><div class="truncate" >No.</div></th>
 			<th><div class="truncate" >제목</div></th>
@@ -128,19 +129,19 @@ th>.truncate, td>.truncate{
 					
 					 <c:if test="${requestPage.startPage > 5}">
 					 <li class="page-item">
-					 	<a class="page-link" href="list.do?pageNo=${requestPage.startPage - 5 }"
+					 	<a class="page-link" href="search.do?pageNo=${requestPage.startPage - 5 }"
 								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
 					</c:if> 
 			
 					<c:forEach var="pNo" begin="${requestPage.startPage }"
 						end="${requestPage.endPage }">
-						<li class="page-item"><a class="page-link" href="list.do?pageNo=${pNo }">${pNo }</a></li>
+						<li class="page-item"><a class="page-link" href="search.do?field=${param.field }&word=${param.word }&pageNo=${pNo }">${pNo }</a></li>
 					</c:forEach> 
 					
 					<c:if test="${requestPage.endPage < requestPage.totalPages }">
 							<li class="page-item">
-								<a class="page-link" href="list.do?pageNo=${requestPage.startPage + 5 }"
+								<a class="page-link" href="search.do?pageNo=${requestPage.startPage + 5 }"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>
@@ -156,17 +157,15 @@ th>.truncate, td>.truncate{
 		style="display: flex; margin-top: 40px;">
 			<div class="form-group">
 				<select name="field"class="form-control" >
-					<option selected>검색항목</option>
+					<option selected>검색 항목</option>
 					<option value="animal">돌봄 동물</option>
 					<option value="location">지역</option>
 				</select>
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<c:if test="${errors.animal }"><i class="fas fa-exclamation" style="color: red;"></i> 돌봄동물을 선택하세요.</c:if> 					
-					</div>
+					
 			</div>
 			
 			<div class="form-group">
-				<input type="text" name="word" id=""  class="form-control" style="margin-left: 8px;"/>
+				<input type="text" name="word" value="${param.word }"  class="form-control" style="margin-left: 8px;"/>
 			</div>
 			
 			<div>

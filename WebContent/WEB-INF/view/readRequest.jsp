@@ -10,6 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -24,6 +26,7 @@ $(function() {
 		$("#startDate").removeAttr("disabled");
 		$("#endDate").removeAttr("disabled");
 		$(this).hide();
+		$("#remove-btn").hide();
 		$("#submitBtn").removeAttr("hidden");
 	});
 	$("#submitBtn").click(function(){
@@ -45,6 +48,9 @@ $(function() {
 
 </script>
 <style>
+* {
+	font-family: "Nanum Gothic", sans-serif;
+}
 #wrapper {
 	max-width: 1400px;
 	margin: 0 auto;

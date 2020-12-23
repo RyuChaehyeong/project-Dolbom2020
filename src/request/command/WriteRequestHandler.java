@@ -34,7 +34,7 @@ public class WriteRequestHandler implements CommandHandler {
 		}
 	}
 
-	private String processForm(HttpServletRequest req, HttpServletResponse res) {
+	private String processForm(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		return FORM_VIEW;
 	}
 
@@ -44,6 +44,11 @@ public class WriteRequestHandler implements CommandHandler {
 		req.setAttribute("errors", errors);
 
 		User user = (User) req.getSession().getAttribute("authUser");
+
+		if (user.getStatus() == "1") {
+			
+		}
+		
 		WriterRequest writeReq = createWriteRequest(user, req, errors);
 
 		writeReq.validate(errors);

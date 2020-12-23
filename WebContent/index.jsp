@@ -11,10 +11,17 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <style>
+
+* {
+	font-family: "Nanum Gothic", sans-serif;
+}
 #wrapper {
 	max-width: 1400px;
 	margin: 0 auto;
@@ -108,6 +115,8 @@
 	padding-left: 45px;
 }
 
+
+
 </style>
 </head>
 <body>
@@ -171,15 +180,10 @@
 					</u:notLogin>
 					<u:isLogin>
 
-							<h5>${authUser.name }님,
-								<br /> 안녕하세요!
-							</h5>
-					<c:if test="${authUser.status == '0' }">
-								<br />
-								<br />
+							<h3>${authUser.name }<c:if test="${authUser.status == '0'  }"> 회원님, </c:if><c:if test="${authUser.status == '1' }"> &nbsp;돌봄이님, 	</c:if></h3> <br />
+							<h3>안녕하세요!</h3>
 					
-					</c:if>
-							<br /> <br /> 
+							<br /> 
 							<a class="btn btn-light" href="logout.do" role="button">로그아웃</a>
 							
 					</u:isLogin>
