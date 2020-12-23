@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>Dolbom</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <context-param>
+		<param-name>jdbcUrl</param-name>
+		<param-value>jdbc:oracle:thin:@mydb501_high?TNS_ADMIN=C:\\Users\\fluid\\Documents\\Wallet_mydb501</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>jdbcUser</param-name>
+		<param-value>mydb17</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>jdbcPassword</param-name>
+		<param-value>adminAdmin12</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>ControllerUsingURI</servlet-name>
+		<servlet-class>mvc.controller.ControllerUsingURI</servlet-class>
+		<init-param>
+			<param-name>configFile</param-name>
+			<param-value>
+			/WEB-INF/commandHandler.properties
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ControllerUsingURI</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<filter>
+		<filter-name>LoginCheckFilter</filter-name>
+		<filter-class>filter.LoginCheckFilter</filter-class>
+	</filter>
+	
+	<filter>
+		<filter-name>CustomerCheckFilter</filter-name>
+		<filter-class>filter.CustomerCheckFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>LoginCheckFilter</filter-name>
+		<url-pattern>/request/write.do</url-pattern>
+		
+	</filter-mapping>
+	
+</web-app>
