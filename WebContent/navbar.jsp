@@ -16,6 +16,10 @@
 .navbar {
 width: 1400px;
 }
+li {
+	font-weight: bold;
+
+}
 </style>
 </head>
 <body>
@@ -53,6 +57,8 @@ width: 1400px;
 
 		<u:isLogin>
 			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link"
+					href="${root }/mypage/read.do"> 마이페이지 </a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="${root }/logout.do"> 로그아웃 <i class="fas fa-sign-out-alt"></i></a></li>
 				<li class="nav-item"><a class="nav-link"

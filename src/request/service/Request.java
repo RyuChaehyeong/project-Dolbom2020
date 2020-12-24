@@ -14,9 +14,14 @@ public class Request {
 	private Date endDate;
 	private String local;
 	private String info;
+	private Integer quoteCnt;
+	private Integer complete;
+	
+
+
+
 	public Request(Integer reqNo, String writer_id, String title, String animal, Date startDate, Date endDate,
-			String local, String info) {
-		super();
+			String local, String info, Integer quoteCnt, Integer complete) {
 		this.reqNo = reqNo;
 		this.writer_id = writer_id;
 		this.title = title;
@@ -25,7 +30,10 @@ public class Request {
 		this.endDate = endDate;
 		this.local = local;
 		this.info = info;
+		this.quoteCnt = quoteCnt;
+		this.complete = complete;
 	}
+	
 	public Integer getReqNo() {
 		return reqNo;
 	}
@@ -74,7 +82,21 @@ public class Request {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	
+	public Integer getQuoteCnt() {
+		return quoteCnt;
+	}
+	public void setQuoteCnt(Integer quoteCnt) {
+		this.quoteCnt = quoteCnt;
+	}
 
+	public Integer getComplete() {
+		return complete;
+	}
+
+	public void setComplete(Integer complete) {
+		this.complete = complete;
+	}
+	
+	
 	
 }

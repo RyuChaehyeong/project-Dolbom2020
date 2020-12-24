@@ -45,7 +45,6 @@ $(function() {
 	$("#submitBtn").click(function(){
 		var c = confirm("등록하시겠습니까?");
 		if (c) {
-			var c2 = confirm("완료되었습니다.");
 			location.href="${root }/request/write.do";
 		}
 	});
@@ -78,8 +77,13 @@ $(function() {
 			
 				<div class="form-group">
 					<label for="inputAnimal">돌봄동물</label>
-					<select name="animal"class="form-control" >
-						<option selected>돌봄동물을 선택하세요.</option>
+					<select name="animal"class="form-control">
+						<c:if test="${empty param.animal }">
+							<option selected>돌봄 동물을 선택하세요.</option>
+						</c:if>					
+						<c:if test="${not empty param.animal }">
+							<option selected>${param.animal }</option>
+						</c:if>
 						<option value="강아지">강아지</option>
 						<option value="고양이">고양이</option>
 						<option value="새">새</option>
@@ -126,7 +130,7 @@ $(function() {
 				<div class="form-group">
 					 <label for="info">반려동물 특이사항 입력</label> 
 					  <br />
-					<textarea name="info" id="info" cols="140" rows="10">${param.info }</textarea>
+					<textarea name="info" id="info" cols="124" rows="10">${param.info }</textarea>
 					  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					  <c:if test="${errors.info }"><i class="fas fa-exclamation" style="color: red;"></i> 특이사항을 입력하세요.</c:if>
 					</div>

@@ -21,7 +21,6 @@ $(function() {
 	$("#submitBtn").click(function(){
 		var c = confirm("수정하시겠습니까?");
 		if (c) {
-			var c2 = confirm("완료되었습니다.");
 			location.href="modify.do?no=${param.no}";
 		}
 	});
@@ -127,7 +126,7 @@ $(function() {
 				</div>
 				<div class="form-group">
 					 <label for="info">반려동물 특이사항 입력</label> <br />
-						<textarea name="info" id="info" cols="140" rows="10">${param.info }</textarea>
+						<textarea name="info" id="info" cols="124" rows="10">${param.info }</textarea>
 					  <c:if test="${errors.info }">
 						 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 							 <i class="fas fa-exclamation" style="color: red;"></i> 특이사항을 입력하세요.

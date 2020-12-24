@@ -38,7 +38,7 @@ public class WriteRequestService {
 		
 		return new Request(null, writeReq.getWriter().getId(), writeReq.getTitle(), writeReq.getAnimal(),
 				sqlStart, sqlEnd,
-				writeReq.getLocal(), writeReq.getInfo());
+				writeReq.getLocal(), writeReq.getInfo(), 0, 0);
 	}
 
 }

@@ -50,6 +50,8 @@
 	<filter-mapping>
 		<filter-name>LoginCheckFilter</filter-name>
 		<url-pattern>/request/write.do</url-pattern>
+		<url-pattern>/quote/write.do</url-pattern>
+		<url-pattern>/mypage/read.do</url-pattern>
 	</filter-mapping>
 
 	

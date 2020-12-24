@@ -45,9 +45,6 @@ public class WriteRequestHandler implements CommandHandler {
 
 		User user = (User) req.getSession().getAttribute("authUser");
 
-		if (user.getStatus() == "1") {
-			
-		}
 		
 		WriterRequest writeReq = createWriteRequest(user, req, errors);
 

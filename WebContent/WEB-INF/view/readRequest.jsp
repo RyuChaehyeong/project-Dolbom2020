@@ -32,14 +32,12 @@ $(function() {
 	$("#submitBtn").click(function(){
 		var c = confirm("수정하시겠습니까?");
 		if (c) {
-			var c2 = confirm("완료되었습니다.");
 			location.href="modify.do?no=${param.no}";
 		}
 	});
 	$("#remove-btn").click(function(){
 		var c = confirm("삭제하시겠습니까?");
 		if (c) {
-			var c2 = confirm("삭제되었습니다.");
 			location.href="${root }/request/remove.do?no={param.no}";
 		}
 	});
@@ -86,13 +84,27 @@ $(function() {
 			<h2><i class="fas fa-envelope-open-text"></i> ${request.writer_id }님의 ${request.animal } 돌봄 요청글</h2>
 		</div>
 		
-			<c:if test="${authUser.status == '1' }">
+		<c:if test="${request.complete == '0' && authUser.status == '1'}">
+
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding: 15px;">
-				<a href="${root }/request/quote.do" class="btn btn-outline-danger btn-lg"  role="button">견적보내기</a>
-				</div>
-			</c:if>
+				<a href="${root }/quote/write.do?reqNo=${request.reqNo }&reqWriter=${request.writer_id }" 
+				class="btn btn-outline-danger btn-lg"  role="button">견적보내기</a>
+				</div>	
+		</c:if>
+		
+		<c:if test="${request.complete == '1'}">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding: 15px;">
+				<a href="#" 
+				class="btn btn-outline-danger btn-lg"  role="button">마감된 요청입니다.</a>
+				</div>	
+				
+		</c:if>
+		
+			
+			
 			<form action="${root }/request/modify.do" method="post">
 				<input type="text" name="no" value="${request.reqNo }" hidden />
+				
 				<div class="form-group">
 					<label for="inputTitle">제목</label> 
 					<input type="text" name="title" class="form-control" id="inputTitle" value="${request.title }" readonly>
@@ -136,14 +148,18 @@ $(function() {
 				</div>
 				<div class="form-group">
 					 <label for="info">반려동물 특이사항 입력</label> <br />
-					<textarea name="info" id="info" cols="140" rows="10" readonly>${request.info }</textarea>
+					<textarea name="info" id="info" cols="124" rows="10" readonly>${request.info }</textarea>
 
 				</div>
 		
 				<input type="submit" value="수정완료" id="submitBtn" hidden type="submit" class="btn btn-light" />
 
 			</form>
+			<h2>받은 견적 수: ${request.quoteCnt }</h2>
 			<c:if test="${fn:trim(request.writer_id)==fn:trim(authUser.member_id)}">
+			
+				
+				
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-top: 70px;">
 				<button class="btn btn-light" id="modify-btn" style="margin-right: 10px;">수정</button>
 				<a href="${root }/request/remove.do?no=${request.reqNo }" id="remove-btn" class="btn btn-light" style="margin-left: 10px;">삭제</a>

@@ -94,13 +94,14 @@ th>.truncate, td>.truncate{
 			<th><div class="truncate" >돌봄동물</div></th>
 			<th><div class="truncate" >요청날짜</div></th>
 			<th><div class="truncate">지역</div></th>
+			<th><div class="truncate">진행/마감</div></th>
 		</tr>
 		</thead>
 		
 		<tbody>
 		<c:if test="${requestPage.hasNoRequests() }">
 			<tr>
-				<td colspan="5"><div class="truncate" >게시글이 없습니다.</div></td>
+				<td colspan="6"><div class="truncate" >게시글이 없습니다.</div></td>
 			</tr>
 		</c:if>
 
@@ -116,6 +117,12 @@ th>.truncate, td>.truncate{
 				<td><div class="truncate" >${request.animal }</div></td>
 				<td><div class="truncate" >${request.startDate } ~ ${request.endDate }</div></td>
 				<td><div class="truncate" >${request.local }</div></td>
+				<c:if test="${request.complete == '1' }">
+				<td>마감</td>
+				</c:if>
+				<c:if test="${request.complete == '0' }">
+				<td>진행 중</td>
+				</c:if>
 			</tr>
 		</c:forEach>
 		</tbody>
@@ -123,7 +130,7 @@ th>.truncate, td>.truncate{
 
 		<c:if test="${requestPage.hasRequests() }">
 			<tr>
-				<td colspan="5">
+				<td colspan="6">
 					<nav aria-label="Page navigation example" style="padding-top: 40px;">
 					<ul class="pagination justify-content-center">
 					

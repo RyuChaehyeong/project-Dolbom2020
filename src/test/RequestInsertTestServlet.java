@@ -65,7 +65,7 @@ public class RequestInsertTestServlet extends HttpServlet {
 				sqlStart, 
 				sqlEnd, 
 				"뉴옥", 
-				"사나움");
+				"사나움", 0, 0);
 		RequestDao dao = new RequestDao();
 		
 		try (Connection conn = ConnectionProvider.getConnection()) {

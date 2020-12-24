@@ -16,8 +16,8 @@ import request.service.SearchRequest;
 public class RequestDao {
 
 	public Request insert(Connection conn, Request request) throws SQLException {
-		String sql = "INSERT INTO request (title, start_date, end_date, location, animal, writer_id, info ) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO request (title, start_date, end_date, location, animal, writer_id, info, quote_cnt, complete ) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -35,10 +35,9 @@ public class RequestDao {
 			
 			if (cnt == 1) {
 				rs = pstmt.getGeneratedKeys();
-				int key = 0;
-				
+				int key = 0;	
 				if (rs.next()) {
-					key = rs.getInt(1);
+					key = rs.getInt(1);			
 				}
 				return new Request(key, 
 						request.getWriter_id(),
@@ -47,7 +46,9 @@ public class RequestDao {
 						request.getStartDate(), 
 						request.getEndDate(), 
 						request.getLocal(), 
-						request.getInfo());
+						request.getInfo(),
+						0,
+						0);
 				
 			} else {
 				return null;
@@ -85,7 +86,9 @@ public class RequestDao {
 				+ "location, "
 				+ "animal, "
 				+ "writer_id, "
-				+ "info "
+				+ "info, "
+				+ "quote_cnt,"
+				+ "complete "
 				+ "FROM ("
 				+ "	SELECT req_no, "
 				+ " 		   title, "
@@ -95,6 +98,8 @@ public class RequestDao {
 				+ "      	animal, "
 				+ "        writer_id, "
 				+ "			info, "
+				+ "			quote_cnt ,"
+				+ "			complete,  "
 				+ "        ROW_NUMBER() "
 				+ "          OVER ( "
 				+ "            ORDER BY "
@@ -130,7 +135,9 @@ public class RequestDao {
 				rs.getDate("start_date"),
 				rs.getDate("end_date"),
 				rs.getString("location"),
-				rs.getString("info"));
+				rs.getString("info"),
+				rs.getInt("quote_cnt"),
+				rs.getInt("complete"));
 	}
 
 	public Request selectById(Connection conn, int reqNum) throws SQLException {
@@ -204,7 +211,9 @@ public class RequestDao {
 				+ "location, "
 				+ "animal, "
 				+ "writer_id, "
-				+ "info "
+				+ "info, "
+				+ "quote_cnt,"
+				+ "complete "
 				+ "FROM ("
 				+ "	SELECT req_no, "
 				+ " 		   title, "
@@ -214,6 +223,8 @@ public class RequestDao {
 				+ "      	animal, "
 				+ "        writer_id, "
 				+ "			info, "
+				+ "			quote_cnt,"
+				+ "			complete, "
 				+ "        ROW_NUMBER() "
 				+ "          OVER ( "
 				+ "            ORDER BY "
@@ -275,7 +286,9 @@ public class RequestDao {
 				+ "location, "
 				+ "animal, "
 				+ "writer_id, "
-				+ "info "
+				+ "info, "
+				+ "quote_cnt,"
+				+ "complete "
 				+ "FROM ("
 				+ "	SELECT req_no, "
 				+ " 		   title, "
@@ -285,6 +298,8 @@ public class RequestDao {
 				+ "      	animal, "
 				+ "        writer_id, "
 				+ "			info, "
+				+ "			quote_cnt, "
+				+ "			complete, "
 				+ "        ROW_NUMBER() "
 				+ "          OVER ( "
 				+ "            ORDER BY "
@@ -329,6 +344,89 @@ public class RequestDao {
 				return rs.getInt(1);
 			}
 			return 0;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	public void updateQuoteCnt(Connection conn, Integer reqNo) throws SQLException {
+		String sql = "UPDATE request "
+				+ "SET quote_cnt = quote_cnt+1 "
+				+ "WHERE req_no=?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, reqNo);
+			pstmt.executeUpdate();
+		}
+		
+	}
+
+	public int selectCountReqOfCustomer(Connection conn, String writerId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		String sql = "SELECT COUNT(*) FROM request WHERE writer_id=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writerId);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	public List<Request> selectOfCustomer(Connection conn, int pageNo, int size, String writerId) throws SQLException {
+		String sql = "SELECT "
+				+ "rn, "
+				+ "req_no, "
+				+ "title, "
+				+ "start_date, "
+				+ "end_date, "
+				+ "location, "
+				+ "animal, "
+				+ "writer_id, "
+				+ "info, "
+				+ "quote_cnt,"
+				+ "complete "
+				+ "FROM ("
+				+ "	SELECT req_no, "
+				+ " 		   title, "
+				+ "       start_date, "
+				+ "        end_date, "
+				+ "        location, "
+				+ "      	animal, "
+				+ "        writer_id, "
+				+ "			info, "
+				+ "			quote_cnt ,"
+				+ "			complete,  "
+				+ "        ROW_NUMBER() "
+				+ "          OVER ( "
+				+ "            ORDER BY "
+				+ "            req_no "
+				+ "            DESC) "
+				+ "        rn "
+				+ "  FROM request WHERE writer_id=? "
+				+ ") WHERE rn  BETWEEN ? AND ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writerId);
+			pstmt.setInt(2, (pageNo-1) * size + 1);
+			pstmt.setInt(3, pageNo * size);
+			
+			rs = pstmt.executeQuery();
+			List<Request> result = new ArrayList<Request>();
+			while (rs.next()) {
+				result.add(convertRequest(rs));
+			}
+			return result;
 		} finally {
 			JdbcUtil.close(rs, pstmt);
 		}
