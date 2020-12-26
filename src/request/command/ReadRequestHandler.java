@@ -26,7 +26,7 @@ public class ReadRequestHandler implements CommandHandler{
 			List<String> providerList = readService.getProviders(reqNum);
 			req.setAttribute("providerList", providerList);
 			return "readRequest";
-		} catch (RequestNotFoundException e ) {
+		} catch (RequestNotFoundException e) {
 			req.getServletContext().log("no request", e);
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;

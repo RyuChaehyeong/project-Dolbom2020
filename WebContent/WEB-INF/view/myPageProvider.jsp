@@ -102,11 +102,15 @@ th>.truncate, td>.truncate{
 			<tr>
 				<td><div class="truncate">${quote.quoteNo }</div></td>
 				<td><div class="truncate" >
-					<a href="${root }/request/read.do?no=${quote.reqSum.reqNo }&pageNo=${quotePage.currentPage}">
+					<a href="${root }/request/read.do?no=${quote.reqSum.reqNo }&qpageNo=${quotePage.currentPage}">
 						<c:out value="${quote.reqSum.reqTitle }" />
 					</a></div>
 				</td>
-				<td><div class="truncate" >${quote.title }</div></td>
+				<td><div class="truncate" >
+					<a href="${root }/quote/read.do?no=${quote.quoteNo }&qpageNo=${quotePage.currentPage}">
+						<c:out value="${quote.title }"></c:out>
+					</a>
+				</div></td>
 				<td><div class="truncate" >${quote.price }</div></td>
 				
 				<c:if test="${quote.complete == '0'}">

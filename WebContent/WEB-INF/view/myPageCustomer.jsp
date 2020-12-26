@@ -180,20 +180,26 @@ th>.truncate, td>.truncate{
 				<td colspan="5"><div class="truncate" >게시글이 없습니다.</div></td>
 			</tr>
 		</c:if>
-
+		
 		<c:forEach var="quote" items="${quotePage.quoteList }">
+			<c:if test="${quote.complete == '0' }">
 			<tr>
 				<td><div class="truncate">${quote.quoteNo }</div></td>
 				<td><div class="truncate" >
-					<a href="${root }/request/read.do?no=${quote.reqSum.reqNo }&pageNo=${quotePage.currentPage}">
+					<a href="${root }/request/read.do?no=${quote.reqSum.reqNo }&qpageNo=${quotePage.currentPage}">
 						<c:out value="${quote.reqSum.reqTitle }" />
 					</a></div>
 				</td>
-				<td><div class="truncate" >${quote.title }</div></td>
+				<td><div class="truncate" >
+					<a href="${root }/quote/read.do?no=${quote.quoteNo }&qpageNo=${quotePage.currentPage}">
+						<c:out value="${quote.title }"></c:out>
+					</a>
+				</div></td>
 				<td><div class="truncate" >${quote.price }</div></td>
 				<td><div class="truncate" >${quote.provider }</div></td>
 			
 			</tr>
+			</c:if>
 		</c:forEach>
 		</tbody>
 	</table>

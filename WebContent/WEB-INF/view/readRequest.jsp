@@ -156,15 +156,12 @@ $(function() {
 
 			</form>
 			<h2>받은 견적 수: ${request.quoteCnt } </h2>
-			<c:if test="${fn:trim(request.writer_id)==fn:trim(authUser.member_id)}">
 			
-				
-				
-			<div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-top: 70px;">
-				<button class="btn btn-light" id="modify-btn" style="margin-right: 10px;">수정</button>
-				<a href="${root }/request/remove.do?no=${request.reqNo }" id="remove-btn" class="btn btn-light" style="margin-left: 10px;">삭제</a>
-			</div>
-
+			<c:if test="${fn:trim(request.writer_id)==fn:trim(authUser.member_id)}">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-top: 70px;">
+					<button class="btn btn-light" id="modify-btn" style="margin-right: 10px;">수정</button>
+					<a href="${root }/request/remove.do?no=${request.reqNo }" id="remove-btn" class="btn btn-light" style="margin-left: 10px;">삭제</a>
+				</div>
 			</c:if>
 		<div class="d-grid gap-2 d-md-flex justify-content-md-start" >
 		<a href="${root }/request/list.do" class="btn btn-outline-secondary" style="margin-top: 20px"  role="button">

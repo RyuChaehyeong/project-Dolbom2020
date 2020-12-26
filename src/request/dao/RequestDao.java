@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import jdbc.ConnectionProvider;
 import jdbc.JdbcUtil;
 import request.service.ModifyRequest;
 import request.service.Request;
@@ -430,6 +431,15 @@ public class RequestDao {
 		} finally {
 			JdbcUtil.close(rs, pstmt);
 		}
+	}
+
+	public void updateComplete(Connection conn, int reqNo) throws SQLException {
+		String sql = "UPDATE request SET complete=1 WHERE req_no=?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, reqNo);
+			pstmt.executeUpdate();
+		}
+		
 	}
 	
 

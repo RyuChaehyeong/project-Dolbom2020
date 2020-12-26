@@ -81,7 +81,7 @@ public class QuoteDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 	
-		String sql = "SELECT COUNT(*) FROM quote WHERE req_writer=? AND complete=0";
+		String sql = "SELECT COUNT(*) FROM quote WHERE req_writer=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -127,7 +127,7 @@ public class QuoteDao {
 				+ "            quote_no "
 				+ "            DESC) "
 				+ "        rn "
-				+ "  FROM quote WHERE req_writer=? AND complete=0"
+				+ "  FROM quote WHERE req_writer=? "
 				+ ") WHERE rn  BETWEEN ? AND ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -235,5 +235,52 @@ public class QuoteDao {
 			JdbcUtil.close(rs, pstmt);
 		}
 	}
+
+	public Quote selectByNo(Connection conn, int quoteNo) throws SQLException {
+		String sql = "SELECT * "
+				+ "FROM quote "
+				+ "WHERE quote_no=?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Quote quote = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, quoteNo);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				quote = convertQuote(rs);
+			}
+			return quote;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	public void updateComplete(Connection conn, int quoteNo) throws SQLException {
+		String sql = "UPDATE quote SET complete=1 WHERE quote_no=?";
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, quoteNo);
+			pstmt.executeUpdate();
+		}
+		
+	}
+
+	public void updateDenied(Connection conn, int quoteNo, int reqNo) throws SQLException {
+		String sql = "UPDATE quote SET complete=2 WHERE NOT quote_no=? AND req_No=?";
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, quoteNo);
+			pstmt.setInt(2, reqNo);
+			pstmt.executeUpdate();
+		}
+		
+	}
+
+	
 
 }
