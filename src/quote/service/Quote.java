@@ -4,38 +4,25 @@ public class Quote {
 	private Integer quoteNo;
 	private String title;
 	private String provider;
-	private Integer reqNo;
-	private String reqWriter;
+	private RequestSummary reqSum;
 	private Integer price;
 	private String location;
 	private String info;
 	private Integer complete;
 	
-	public Quote(Integer quoteNo, String title, String provider, Integer reqNo, String reqWriter, Integer price,
-			String location, String info, Integer complete) {
+
+
+	public Quote(Integer quoteNo, String title, String provider, RequestSummary reqSum, Integer price, String location,
+			String info, Integer complete) {
 		this.quoteNo = quoteNo;
 		this.title = title;
 		this.provider = provider;
-		this.reqNo = reqNo;
-		this.reqWriter = reqWriter;
+		this.reqSum = reqSum;
 		this.price = price;
 		this.location = location;
 		this.info = info;
 		this.complete = complete;
 	}
-	public Quote(Integer quoteNo, String title, String provider, Integer reqNo, String reqWriter, Integer price,
-			String location, String info) {
-		this.quoteNo = quoteNo;
-		this.title = title;
-		this.provider = provider;
-		this.reqNo = reqNo;
-		this.reqWriter = reqWriter;
-		this.price = price;
-		this.location = location;
-		this.info = info;
-	}
-	
-	
 	public Integer getComplete() {
 		return complete;
 	}
@@ -60,17 +47,12 @@ public class Quote {
 	public void setProvider(String provider) {
 		this.provider = provider;
 	}
-	public Integer getReqNo() {
-		return reqNo;
+
+	public RequestSummary getReqSum() {
+		return reqSum;
 	}
-	public void setReqNo(Integer reqNo) {
-		this.reqNo = reqNo;
-	}
-	public String getReqWriter() {
-		return reqWriter;
-	}
-	public void setReqWriter(String reqWriter) {
-		this.reqWriter = reqWriter;
+	public void setReqSum(RequestSummary reqSum) {
+		this.reqSum = reqSum;
 	}
 	public Integer getPrice() {
 		return price;

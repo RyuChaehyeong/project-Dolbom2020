@@ -58,7 +58,7 @@ th>.truncate, td>.truncate{
   white-space: nowrap;
 }
 .section {
-	margin: 70px;
+	margin: 50px;
 
 }
 
@@ -77,7 +77,7 @@ th>.truncate, td>.truncate{
 		<div style="padding-bottom: 50px;">
 			<h2><i class="far fa-list-alt"></i>&nbsp; ${authUser.name }님의 마이페이지</h2>
 		</div>
-	
+
 <div class="section">
 			<h4><i class="fas fa-paw"></i>&nbsp; My돌봄 요청</h4>
 	<table class="table table-hover">
@@ -88,14 +88,16 @@ th>.truncate, td>.truncate{
 			<th><div class="truncate" >제목</div></th>
 			<th><div class="truncate" >돌봄동물</div></th>
 			<th><div class="truncate" >요청날짜</div></th>
-			<th><div class="truncate">진행/마감</div></th>
+			<th><div class="truncate">도착한 견적서</div></th>
+			<th><div class="truncate">성사여부</div></th>
+			
 		</tr>
 		</thead>
 		
 		<tbody>
 		<c:if test="${requestPage.hasNoRequests() }">
 			<tr>
-				<td colspan="5"><div class="truncate" >게시글이 없습니다.</div></td>
+				<td colspan="4"><div class="truncate" >게시글이 없습니다.</div></td>
 			</tr>
 		</c:if>
 
@@ -110,7 +112,13 @@ th>.truncate, td>.truncate{
 				
 				<td><div class="truncate" >${request.animal }</div></td>
 				<td><div class="truncate" >${request.startDate } ~ ${request.endDate }</div></td>
-				<td><div class="truncate">${request.complete }</div></td>
+				<td><div class="truncate" >${request.quoteCnt }</div></td>
+				<c:if test="${request.complete == '1' }">
+					<td><div class="truncate">돌봄성사</div></td>
+				</c:if>
+				<c:if test="${request.complete == '0' }">
+					<td><div class="truncate">돌봄미성사</div></td>
+				</c:if>
 			</tr>
 		</c:forEach>
 		</tbody>
@@ -118,7 +126,7 @@ th>.truncate, td>.truncate{
 
 		<c:if test="${requestPage.hasRequests() }">
 			<tr>
-				<td colspan="5">
+				<td colspan="4">
 					<nav aria-label="Page navigation example" style="padding-top: 40px;">
 					<ul class="pagination justify-content-center">
 					
@@ -150,6 +158,7 @@ th>.truncate, td>.truncate{
 		</c:if>
 </div>		
 
+ 
 
 <div class="section">
 	<h4><i class="fas fa-paw"></i>&nbsp; 내가 받은 견적서</h4>
@@ -157,57 +166,59 @@ th>.truncate, td>.truncate{
 	  <thead>
 		
 		<tr>
-			<th><div class="truncate" >No.</div></th>
-			<th><div class="truncate" >제목</div></th>
-			<th><div class="truncate" >돌봄동물</div></th>
-			<th><div class="truncate" >요청날짜</div></th>
+			<th><div class="truncate">견적서 번호</div></th>
+			<th><div class="truncate" >요청서 제목</div></th>
+			<th><div class="truncate" >견적서 제목</div></th>
+			<th><div class="truncate" >견적 금액</div></th>
+			<th><div class="truncate" >돌봄이 아이디</div></th>
 		</tr>
 		</thead>
 		
 		<tbody>
-		<c:if test="${requestPage.hasNoRequests() }">
+		<c:if test="${quotePage.hasNoQuotes() }">
 			<tr>
 				<td colspan="5"><div class="truncate" >게시글이 없습니다.</div></td>
 			</tr>
 		</c:if>
 
-		<c:forEach var="request" items="${requestPage.reqList }">
+		<c:forEach var="quote" items="${quotePage.quoteList }">
 			<tr>
-				<td>${request.reqNo }</td>
+				<td><div class="truncate">${quote.quoteNo }</div></td>
 				<td><div class="truncate" >
-					<a href="${root }/request/read.do?no=${request.reqNo }&pageNo=${requestPage.currentPage}">
-						<c:out value="${request.title }" />
+					<a href="${root }/request/read.do?no=${quote.reqSum.reqNo }&pageNo=${quotePage.currentPage}">
+						<c:out value="${quote.reqSum.reqTitle }" />
 					</a></div>
 				</td>
-				
-				<td><div class="truncate" >${request.animal }</div></td>
-				<td><div class="truncate" >${request.startDate } ~ ${request.endDate }</div></td>
+				<td><div class="truncate" >${quote.title }</div></td>
+				<td><div class="truncate" >${quote.price }</div></td>
+				<td><div class="truncate" >${quote.provider }</div></td>
+			
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
 
-		<c:if test="${requestPage.hasRequests() }">
+		<c:if test="${quotePage.hasQuotes() }">
 			<tr>
 				<td colspan="5">
 					<nav aria-label="Page navigation example" style="padding-top: 40px;">
 					<ul class="pagination justify-content-center">
 					
-					 <c:if test="${requestPage.startPage > 5}">
+					 <c:if test="${quotePage.startPage > 5}">
 					 <li class="page-item">
-					 	<a class="page-link" href="read.do?pageNo=${requestPage.startPage - 5 }"
+					 	<a class="page-link" href="read.do?qpageNo=${requestPage.startPage - 5 }"
 								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
 					</c:if> 
 			
-					<c:forEach var="pNo" begin="${requestPage.startPage }"
-						end="${requestPage.endPage }">
-						<li class="page-item"><a class="page-link" href="read.do?pageNo=${pNo }">${pNo }</a></li>
+					<c:forEach var="pNo" begin="${quotePage.startPage }"
+						end="${quotePage.endPage }">
+						<li class="page-item"><a class="page-link" href="read.do?qpageNo=${pNo }">${pNo }</a></li>
 					</c:forEach> 
 					
-					<c:if test="${requestPage.endPage < requestPage.totalPages }">
+					<c:if test="${quotePage.endPage < quotePage.totalPages }">
 							<li class="page-item">
-								<a class="page-link" href="read.do?pageNo=${requestPage.startPage + 5 }"
+								<a class="page-link" href="read.do?qpageNo=${quotePage.startPage + 5 }"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>
@@ -222,7 +233,7 @@ th>.truncate, td>.truncate{
 </div>		
 
 
-
+<!-- 
 <div class="section">
 	<h4><i class="fas fa-paw"></i>&nbsp; 나의 돌봄 이용 내역</h4>
 	<table class="table table-hover">
@@ -292,6 +303,7 @@ th>.truncate, td>.truncate{
 
 		</c:if>
 </div>				
+ -->
 		</div>
 		<%@ include file="footer.jsp"%>
 	</div>

@@ -67,7 +67,7 @@ $(function() {
 		<div style="padding-bottom: 50px;">
 			<h2><i class="fas fa-pen-alt"></i>견적서 작성</h2>
 		</div>
-			<form action="${root }/quote/write.do?reqNo=${param.reqNo }&reqWriter=${param.reqWriter }" method="post" >
+			<form action="${root }/quote/write.do?reqNo=${param.reqNo }&reqWriter=${param.reqWriter }&reqTitle=${param.reqTitle }" method="post" >
 
 				<div class="form-group">
 					<label for="inputTitle">제목</label> 

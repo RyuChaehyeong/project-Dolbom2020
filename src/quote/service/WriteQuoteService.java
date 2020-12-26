@@ -11,6 +11,7 @@ import request.dao.RequestDao;
 public class WriteQuoteService {
 	private QuoteDao quoteDao = new QuoteDao(); 
 	private RequestDao requestDao = new RequestDao();
+	
 
 	public int write(WriteQuote writeQuo) throws SQLException {
 		Connection conn = null;
@@ -25,9 +26,9 @@ public class WriteQuoteService {
 				throw new RuntimeException("fail to insert quote");
 			}
 			
-			requestDao.updateQuoteCnt(conn, writeQuo.getReqNo());
+			requestDao.updateQuoteCnt(conn, writeQuo.getReqSum().getReqNo());
 			
-			return savedQuote.getReqNo();
+			return savedQuote.getQuoteNo();
 		} finally {
 			JdbcUtil.close(conn);
 		}
@@ -38,8 +39,7 @@ public class WriteQuoteService {
 				null, 
 				writeQuo.getTitle(),
 				writeQuo.getProvider(),
-				writeQuo.getReqNo(),
-				writeQuo.getReqWriter(), 
+				writeQuo.getReqSum(),
 				writeQuo.getPrice(),
 				writeQuo.getLocation(),
 				writeQuo.getInfo(), 

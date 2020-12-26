@@ -9,25 +9,27 @@ import java.util.List;
 
 import jdbc.JdbcUtil;
 import quote.service.Quote;
-import request.service.Provider;
+import quote.service.RequestSummary;
 
 public class QuoteDao {
 
 	public Quote insert(Connection conn, Quote quote) throws SQLException {
-		String sql = "INSERT INTO quote (quote_title, provider_id, req_no, req_writer, price, location, info ) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO quote (quote_title, provider_id, req_no, req_writer, req_title, price, location, info ) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
+			int c = 1;
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, quote.getTitle());
-			pstmt.setString(2, quote.getProvider());
-			pstmt.setInt(3, quote.getReqNo());
-			pstmt.setString(4, quote.getReqWriter());
-			pstmt.setInt(5, quote.getPrice());
-			pstmt.setString(6, quote.getLocation());
-			pstmt.setString(7, quote.getInfo());
+			pstmt.setString(c++, quote.getTitle());
+			pstmt.setString(c++, quote.getProvider());
+			pstmt.setInt(c++, quote.getReqSum().getReqNo());
+			pstmt.setString(c++, quote.getReqSum().getReqWriter());
+			pstmt.setString(c++, quote.getReqSum().getReqTitle());
+			pstmt.setInt(c++, quote.getPrice());
+			pstmt.setString(c++, quote.getLocation());
+			pstmt.setString(c++, quote.getInfo());
 			
 			int cnt = pstmt.executeUpdate();
 			
@@ -41,14 +43,17 @@ public class QuoteDao {
 					complete = rs.getInt("complete");
 				}
 				
-				return new Quote(key,
-						quote.getTitle(),
+				return new Quote(
+						key, quote.getTitle(), 
 						quote.getProvider(), 
-						quote.getReqNo(), 
-						quote.getReqWriter(), 
+						new RequestSummary(
+								quote.getReqSum().getReqNo(), 
+								quote.getReqSum().getReqWriter(), 
+								quote.getReqSum().getReqTitle()),								
 						quote.getPrice(), 
 						quote.getLocation(), 
-						quote.getInfo());
+						quote.getInfo(), 
+						complete);
 			} else {
 				return null;
 			}
@@ -69,6 +74,165 @@ public class QuoteDao {
 			}
 			
 			return providerList;
+		}
+	}
+
+	public int selectCountQuoToCustomer(Connection conn, String writerId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		String sql = "SELECT COUNT(*) FROM quote WHERE req_writer=? AND complete=0";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writerId);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	public List<Quote> selectQuoToCustomer(Connection conn, int qpageNo, int size, String writerId) throws SQLException {
+		String sql = "SELECT "
+				+ "rn, "
+				+ "quote_no, "
+				+ "quote_title, "
+				+ "provider_id, "
+				+ "req_no, "
+				+ "req_writer, "
+				+ "req_title, "
+				+ "price, "
+				+ "location, "
+				+ "info, "
+				+ "complete "
+				+ "FROM ("
+				+ "	SELECT quote_no, "
+				+ " 		quote_title, "
+				+ "       provider_id, "
+				+ "       req_no, "
+				+ "       req_writer, "
+				+ "			req_title, "
+				+ "     	 price, "
+				+ "     	  location, "
+				+ "			info, "
+				+ "			complete,  "
+				+ "        ROW_NUMBER() "
+				+ "          OVER ( "
+				+ "            ORDER BY "
+				+ "            quote_no "
+				+ "            DESC) "
+				+ "        rn "
+				+ "  FROM quote WHERE req_writer=? AND complete=0"
+				+ ") WHERE rn  BETWEEN ? AND ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writerId);
+			pstmt.setInt(2, (qpageNo-1) * size + 1);
+			pstmt.setInt(3, qpageNo * size);
+			
+			rs = pstmt.executeQuery();
+			List<Quote> result = new ArrayList<Quote>();
+			while (rs.next()) {
+				result.add(convertQuote(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	private Quote convertQuote(ResultSet rs) throws SQLException {
+		return new Quote(
+				rs.getInt("quote_no"), 
+				rs.getString("quote_title"), 
+				rs.getString("provider_id"), 
+				new RequestSummary(
+						rs.getInt("req_no"),
+						rs.getString("req_writer"),
+						rs.getString("req_title")),
+				rs.getInt("price"), 
+				rs.getString("location"), 
+				rs.getString("info"), 
+				rs.getInt("complete"));
+	}
+
+	public int selectCountQuoFromProvider(Connection conn, String providerId) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		String sql = "SELECT COUNT(*) FROM quote WHERE provider_id=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, providerId);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	public List<Quote> selectQuoFromProvider(Connection conn, int qpageNo, int size, String providerId) throws SQLException {
+		String sql = "SELECT "
+				+ "rn, "
+				+ "quote_no, "
+				+ "quote_title, "
+				+ "provider_id, "
+				+ "req_no, "
+				+ "req_writer, "
+				+ "req_title, "
+				+ "price, "
+				+ "location, "
+				+ "info, "
+				+ "complete "
+				+ "FROM ("
+				+ "	SELECT quote_no, "
+				+ " 		quote_title, "
+				+ "       provider_id, "
+				+ "       req_no, "
+				+ "       req_writer, "
+				+ "			req_title, "
+				+ "     	 price, "
+				+ "     	  location, "
+				+ "			info, "
+				+ "			complete,  "
+				+ "        ROW_NUMBER() "
+				+ "          OVER ( "
+				+ "            ORDER BY "
+				+ "            quote_no "
+				+ "            DESC) "
+				+ "        rn "
+				+ "  FROM quote WHERE provider_id=? "
+				+ ") WHERE rn  BETWEEN ? AND ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, providerId);
+			pstmt.setInt(2, (qpageNo-1) * size + 1);
+			pstmt.setInt(3, qpageNo * size);
+			
+			rs = pstmt.executeQuery();
+			List<Quote> result = new ArrayList<Quote>();
+			while (rs.next()) {
+				result.add(convertQuote(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
 		}
 	}
 

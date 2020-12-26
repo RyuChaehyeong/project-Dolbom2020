@@ -87,7 +87,7 @@ $(function() {
 		<c:if test="${request.complete == '0' && authUser.status == '1'}">
 
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding: 15px;">
-				<a href="${root }/quote/write.do?reqNo=${request.reqNo }&reqWriter=${request.writer_id }" 
+				<a href="${root }/quote/write.do?reqNo=${request.reqNo }&reqWriter=${request.writer_id }&reqTitle=${request.title }" 
 				class="btn btn-outline-danger btn-lg"  role="button">견적보내기</a>
 				</div>	
 		</c:if>
@@ -155,7 +155,7 @@ $(function() {
 				<input type="submit" value="수정완료" id="submitBtn" hidden type="submit" class="btn btn-light" />
 
 			</form>
-			<h2>받은 견적 수: ${request.quoteCnt }</h2>
+			<h2>받은 견적 수: ${request.quoteCnt } </h2>
 			<c:if test="${fn:trim(request.writer_id)==fn:trim(authUser.member_id)}">
 			
 				

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import auth.service.User;
 import mvc.command.CommandHandler;
+import quote.service.RequestSummary;
 import quote.service.WriteQuote;
 import quote.service.WriteQuoteService;
 
@@ -62,16 +63,15 @@ public class WriteQuoteHandler implements CommandHandler {
 
 	private WriteQuote createQuote(User user, HttpServletRequest req, Integer reqNo) {
 		String provider = user.getMember_id();
-	
 		String reqWriter = req.getParameter("reqWriter");
+		String reqTitle = req.getParameter("reqTitle");
 		String title = req.getParameter("title");
 		String location = req.getParameter("loc");
 		String price = req.getParameter("price");
 		String info = req.getParameter("info");
 		return new WriteQuote(title,
 				provider,
-				reqNo,
-				reqWriter,
+				new RequestSummary(reqNo, reqWriter, reqTitle),
 				Integer.parseInt(price),
 				location,
 				info);
