@@ -88,10 +88,12 @@ $(function() {
 		</c:if>
 		
 		<c:if test="${fn:trim(quote.reqSum.reqWriter)==fn:trim(authUser.member_id)}">
-			<div class="d-grid gap-2 d-md-flex justify-content-md-start" style="margin-bottom: 30px;">
-				<a href="${root }/quote/choose.do?quoteNo=${quote.quoteNo }&reqNo=${quote.reqSum.reqNo }" 
-				class="btn btn-outline-danger btn-lg" id="completeBtn" role="button">돌봄 확정</a>
+			<c:if test="${quote.complete == '0'}">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-start" style="margin-bottom: 30px;">
+					<a href="${root }/quote/choose.do?quoteNo=${quote.quoteNo }&reqNo=${quote.reqSum.reqNo }" 
+					class="btn btn-outline-danger btn-lg" id="completeBtn" role="button">돌봄 확정</a>
 				</div>
+			</c:if>
 		</c:if>
 
 				<div class="form-group">

@@ -13,11 +13,12 @@ public class WriteQuoteService {
 	private RequestDao requestDao = new RequestDao();
 	
 
-	public int write(WriteQuote writeQuo) throws SQLException {
+	public int write(WriteQuote writeQuo) {
 		Connection conn = null;
 		
 		try {
 			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
 			
 			Quote quote = toQuote(writeQuo);
 			Quote savedQuote = quoteDao.insert(conn, quote);
@@ -28,7 +29,14 @@ public class WriteQuoteService {
 			
 			requestDao.updateQuoteCnt(conn, writeQuo.getReqSum().getReqNo());
 			
+			conn.commit();
+			
 			return savedQuote.getQuoteNo();
+			
+		} catch (SQLException e) {
+			JdbcUtil.rollback(conn);
+			throw new RuntimeException();
+			
 		} finally {
 			JdbcUtil.close(conn);
 		}

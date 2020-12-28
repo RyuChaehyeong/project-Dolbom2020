@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
+import jdbc.JdbcUtil;
 import mypage.service.QuotePage;
 import quote.dao.QuoteDao;
 
@@ -26,14 +27,22 @@ public class ReadQuoteService {
 	
 	public QuotePage getQuoteByreqNo(int qpageNo, int reqNo) {
 		int size = 5;
-		try (Connection conn = ConnectionProvider.getConnection()) {
+		Connection conn = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
 			int totalQuoToCustomer = quoteDao.selectCountByreqNo(conn, reqNo);
 			List<Quote> quoList = quoteDao.selectByreqNo(conn, qpageNo, size, reqNo);
+			
+			conn.commit();
 			return new QuotePage(totalQuoToCustomer, qpageNo, size, quoList);
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			JdbcUtil.rollback(conn);
 			throw new RuntimeException();
+			
+		} finally {
+			JdbcUtil.close(conn);
 		}
 	}
 

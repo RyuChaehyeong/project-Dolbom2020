@@ -13,6 +13,8 @@ public class ModifyRequestService {
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
+			
 			Request request = requestDao.selectById(conn, modReq.getReqNo());
 			
 			if (request == null) {
@@ -24,8 +26,10 @@ public class ModifyRequestService {
 			}
 			
 			requestDao.update(conn, modReq);
+			
+			conn.commit();
 		} catch (Exception e) {
-			e.printStackTrace();
+			JdbcUtil.rollback(conn);
 		} finally {
 			JdbcUtil.close(conn);
 		}

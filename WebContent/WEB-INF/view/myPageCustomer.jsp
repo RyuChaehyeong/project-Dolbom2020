@@ -244,64 +244,81 @@ th>.truncate, td>.truncate{
 </div>		
 
 
-<!-- 
+
 <div class="section">
 	<h4><i class="fas fa-paw"></i>&nbsp; 나의 돌봄 이용 내역</h4>
 	<table class="table table-hover">
 	  <thead>
 		
 		<tr>
-			<th><div class="truncate" >No.</div></th>
-			<th><div class="truncate" >제목</div></th>
-			<th><div class="truncate" >돌봄동물</div></th>
-			<th><div class="truncate" >요청날짜</div></th>
+			<th><div class="truncate" >계약 번호</div></th>
+			<th><div class="truncate" >요청 번호</div></th>
+			<th><div class="truncate" >견적서 번호</div></th>
+			<th><div class="truncate">돌봄이</div></th>
+			<th><div class="truncate" >후기</div></th>
+			
 		</tr>
 		</thead>
 		
 		<tbody>
-		<c:if test="${requestPage.hasNoRequests() }">
+		<c:if test="${contractPage.hasNoContracts() }">
 			<tr>
 				<td colspan="5"><div class="truncate" >게시글이 없습니다.</div></td>
 			</tr>
 		</c:if>
 
-		<c:forEach var="request" items="${requestPage.reqList }">
+		<c:forEach var="contract" items="${contractPage.contractList }">
 			<tr>
-				<td>${request.reqNo }</td>
+				<td>${contract.contractNum }</td>
 				<td><div class="truncate" >
-					<a href="${root }/request/read.do?no=${request.reqNo }&pageNo=${requestPage.currentPage}">
-						<c:out value="${request.title }" />
+					<a href="${root }/request/read.do?reqNo=${contract.reqNum }&cpageNo=${contractPage.currentPage}">
+						<c:out value="요청서 보기" />
 					</a></div>
 				</td>
 				
-				<td><div class="truncate" >${request.animal }</div></td>
-				<td><div class="truncate" >${request.startDate } ~ ${request.endDate }</div></td>
+				<td><div class="truncate" >
+					<a href="${root }/quote/read.do?no=${contract.quoNum }&cpageNo=${contractPage.currentPage}">
+						<c:out value="견적서 보기" />
+					</a></div>
+				</td>
+				<td>${contract.providerId }</td>
+				<td>
+					<c:if test="${contract.customerReview == '0' }">
+						<div class="truncate" ><a href="${root }/review/write.do?quoNum=${contract.quoNum }" 
+						class="btn btn-outline-danger btn-sm"  role="button">돌봄이 평가</a></div>
+					</c:if>
+					<c:if test="${contractcustomerReview == '1' }">
+						<div class="truncate" ><a href="${root }/review/read.do?quoNum=${contract.quoNum }" 
+						class="btn btn-outline-danger btn-sm"  role="button">나의 후기</a></div>
+					</c:if>
+				</td>
+				
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
 
-		<c:if test="${requestPage.hasRequests() }">
+		<c:if test="${contractPage.hasContracts() }">
 			<tr>
 				<td colspan="5">
 					<nav aria-label="Page navigation example" style="padding-top: 40px;">
 					<ul class="pagination justify-content-center">
 					
-					 <c:if test="${requestPage.startPage > 5}">
+					 <c:if test="${contractPage.startPage > 5}">
 					 <li class="page-item">
-					 	<a class="page-link" href="read.do?pageNo=${requestPage.startPage - 5 }"
+					 	<a class="page-link" href="read.do?cpageNo=${contractPage.startPage - 5 }"
 								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
 					</c:if> 
 			
-					<c:forEach var="pNo" begin="${requestPage.startPage }"
-						end="${requestPage.endPage }">
-						<li class="page-item"><a class="page-link" href="read.do?pageNo=${pNo }">${pNo }</a></li>
+					<c:forEach var="pNo" begin="${contractPage.startPage }"
+						end="${contractPage.endPage }">
+						<li class="page-item"><a class="page-link" href="read.do?cpageNo=${pNo }">${pNo }</a></li>
 					</c:forEach> 
 					
-					<c:if test="${requestPage.endPage < requestPage.totalPages }">
+					<c:if test="${contractPage.endPage < contractPage.totalPages }">
 							<li class="page-item">
-								<a class="page-link" href="read.do?pageNo=${requestPage.startPage + 5 }"
+								<a class="page-link" href="read.do?cpageNo=${requestPage.startPage + 5 }"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>
@@ -314,7 +331,7 @@ th>.truncate, td>.truncate{
 
 		</c:if>
 </div>				
- -->
+ 
 		</div>
 		<%@ include file="footer.jsp"%>
 	</div>
