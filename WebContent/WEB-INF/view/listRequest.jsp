@@ -108,7 +108,7 @@ th>.truncate, td>.truncate{
 			<tr>
 				<td>${request.reqNo }</td>
 				<td><div class="truncate" >
-					<a href="${root }/request/read.do?no=${request.reqNo }&pageNo=${requestPage.currentPage}">
+					<a href="${root }/request/read.do?reqNo=${request.reqNo }&pageNo=${requestPage.currentPage}">
 						<c:out value="${request.title }" />
 					</a></div>
 				</td>

@@ -87,7 +87,7 @@ th>.truncate, td>.truncate{
 			<th><div class="truncate" >요청서 제목</div></th>
 			<th><div class="truncate" >견적서 제목</div></th>
 			<th><div class="truncate" >견적 금액</div></th>
-			<th><div class="truncate" >수락여부</div></th>
+			<th><div class="truncate" >수락/마감</div></th>
 		</tr>
 		</thead>
 		
@@ -113,11 +113,14 @@ th>.truncate, td>.truncate{
 				</div></td>
 				<td><div class="truncate" >${quote.price }</div></td>
 				
-				<c:if test="${quote.complete == '0'}">
-					<td><div class="truncate" >응답없음</div></td>
+				<c:if test="${quote.complete == '2'}">
+					<td><div class="truncate" >마감</div></td>
 				</c:if>
 				<c:if test="${quote.complete == '1'}">
 					<td><div class="truncate" >수락</div></td>
+				</c:if>
+				<c:if test="${quote.complete == '0'}">
+					<td><div class="truncate" >대기중</div></td>
 				</c:if>
 			
 			</tr>

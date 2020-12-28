@@ -105,14 +105,19 @@ th>.truncate, td>.truncate{
 			<tr>
 				<td>${request.reqNo }</td>
 				<td><div class="truncate" >
-					<a href="${root }/request/read.do?no=${request.reqNo }&pageNo=${requestPage.currentPage}">
+					<a href="${root }/total/read.do?no=${request.reqNo }">
 						<c:out value="${request.title }" />
 					</a></div>
 				</td>
 				
 				<td><div class="truncate" >${request.animal }</div></td>
 				<td><div class="truncate" >${request.startDate } ~ ${request.endDate }</div></td>
-				<td><div class="truncate" >${request.quoteCnt }</div></td>
+				<td><div class="truncate" >
+					<a href="${root }/mypage/list.do?reqNo=${request.reqNo }">
+						<c:out value="${request.quoteCnt }" />
+					</a></div>
+				</td>
+
 				<c:if test="${request.complete == '1' }">
 					<td><div class="truncate">돌봄성사</div></td>
 				</c:if>
@@ -182,7 +187,7 @@ th>.truncate, td>.truncate{
 		</c:if>
 		
 		<c:forEach var="quote" items="${quotePage.quoteList }">
-			<c:if test="${quote.complete == '0' }">
+		
 			<tr>
 				<td><div class="truncate">${quote.quoteNo }</div></td>
 				<td><div class="truncate" >
@@ -199,7 +204,7 @@ th>.truncate, td>.truncate{
 				<td><div class="truncate" >${quote.provider }</div></td>
 			
 			</tr>
-			</c:if>
+		
 		</c:forEach>
 		</tbody>
 	</table>

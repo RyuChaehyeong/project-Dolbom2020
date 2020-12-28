@@ -80,8 +80,8 @@ public class QuoteDao {
 	public int selectCountQuoToCustomer(Connection conn, String writerId) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-	
-		String sql = "SELECT COUNT(*) FROM quote WHERE req_writer=?";
+	 
+		String sql = "SELECT COUNT(*) FROM quote WHERE req_writer=? AND complete=0 ";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -127,7 +127,7 @@ public class QuoteDao {
 				+ "            quote_no "
 				+ "            DESC) "
 				+ "        rn "
-				+ "  FROM quote WHERE req_writer=? "
+				+ "  FROM quote WHERE req_writer=? AND complete=0 "
 				+ ") WHERE rn  BETWEEN ? AND ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -148,6 +148,7 @@ public class QuoteDao {
 			JdbcUtil.close(rs, pstmt);
 		}
 	}
+	
 
 	private Quote convertQuote(ResultSet rs) throws SQLException {
 		return new Quote(
@@ -279,6 +280,78 @@ public class QuoteDao {
 			pstmt.executeUpdate();
 		}
 		
+	}
+
+	public int selectCountByreqNo(Connection conn, int reqNo) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		String sql = "SELECT COUNT(*) FROM quote WHERE req_no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reqNo);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	public List<Quote> selectByreqNo(Connection conn, int qpageNo, int size, int reqNo) throws SQLException {
+		String sql = "SELECT "
+				+ "rn, "
+				+ "quote_no, "
+				+ "quote_title, "
+				+ "provider_id, "
+				+ "req_no, "
+				+ "req_writer, "
+				+ "req_title, "
+				+ "price, "
+				+ "location, "
+				+ "info, "
+				+ "complete "
+				+ "FROM ("
+				+ "	SELECT quote_no, "
+				+ " 		quote_title, "
+				+ "       provider_id, "
+				+ "       req_no, "
+				+ "       req_writer, "
+				+ "			req_title, "
+				+ "     	 price, "
+				+ "     	  location, "
+				+ "			info, "
+				+ "			complete,  "
+				+ "        ROW_NUMBER() "
+				+ "          OVER ( "
+				+ "            ORDER BY "
+				+ "            quote_no "
+				+ "            DESC) "
+				+ "        rn "
+				+ "  FROM quote WHERE req_no=? "
+				+ ") WHERE rn  BETWEEN ? AND ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,reqNo);
+			pstmt.setInt(2, (qpageNo-1) * size + 1);
+			pstmt.setInt(3, qpageNo * size);
+			
+			rs = pstmt.executeQuery();
+			List<Quote> result = new ArrayList<Quote>();
+			while (rs.next()) {
+				result.add(convertQuote(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
 	}
 
 	

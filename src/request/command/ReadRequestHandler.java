@@ -17,7 +17,7 @@ public class ReadRequestHandler implements CommandHandler{
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String noVal = req.getParameter("no");
+		String noVal = req.getParameter("reqNo");
 		int reqNum = Integer.parseInt(noVal);
 		try {
 			Request request = readService.getRequest(reqNum);
