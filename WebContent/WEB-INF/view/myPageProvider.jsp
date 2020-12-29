@@ -201,11 +201,11 @@ th>.truncate, td>.truncate{
 				<td>${contract.customerId }</td>
 				<td>
 					<c:if test="${contract.providerReview == '0' }">
-						<div class="truncate" ><a href="${root }/review/write.do?reqNum=${contract.reqNum }" 
+						<div class="truncate" ><a href="${root }/review/write.do?quoNum=${contract.quoNum }" 
 						class="btn btn-outline-danger btn-sm"  role="button">고객 평가</a></div>
 					</c:if>
 					<c:if test="${contract.providerReview == '1' }">
-						<div class="truncate" ><a href="${root }/review/read.do?reqNum=${contract.reqNum }" 
+						<div class="truncate" ><a href="${root }/review/read.do?quoNum=${contract.quoNum }" 
 						class="btn btn-outline-danger btn-sm"  role="button">나의 후기</a></div>
 					</c:if>
 				</td>

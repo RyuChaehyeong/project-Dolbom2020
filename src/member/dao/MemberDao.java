@@ -62,4 +62,15 @@ public class MemberDao {
 		
 	}
 
+	public void updateScore(Connection conn, String target) throws SQLException {
+		String sql = "UPDATE dolbom_member "
+				+ "SET score=(SELECT AVG(score) FROM review WHERE target=?) "
+				+ "WHERE member_id=?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, target);
+			pstmt.setString(2, target);
+			pstmt.executeUpdate();
+		}
+	}
+
 }

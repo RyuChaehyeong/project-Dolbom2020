@@ -52,6 +52,7 @@
 		<url-pattern>/request/write.do</url-pattern>
 		<url-pattern>/quote/write.do</url-pattern>
 		<url-pattern>/mypage/read.do</url-pattern>
+		<url-pattern>/review/write.do</url-pattern>
 	</filter-mapping>
 
 	

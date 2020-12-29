@@ -35,7 +35,8 @@ public class ChooseQuoteHandler implements CommandHandler{
 		
 		contractService.createContract(quote);
 		
-		return "contractSuccess";
+		res.sendRedirect(req.getContextPath()+"/mypage/read.do");
+		return null;
 		
 
 	}

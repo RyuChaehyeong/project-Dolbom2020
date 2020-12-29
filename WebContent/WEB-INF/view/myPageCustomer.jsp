@@ -287,7 +287,7 @@ th>.truncate, td>.truncate{
 						<div class="truncate" ><a href="${root }/review/write.do?quoNum=${contract.quoNum }" 
 						class="btn btn-outline-danger btn-sm"  role="button">돌봄이 평가</a></div>
 					</c:if>
-					<c:if test="${contractcustomerReview == '1' }">
+					<c:if test="${contract.customerReview == '1' }">
 						<div class="truncate" ><a href="${root }/review/read.do?quoNum=${contract.quoNum }" 
 						class="btn btn-outline-danger btn-sm"  role="button">나의 후기</a></div>
 					</c:if>

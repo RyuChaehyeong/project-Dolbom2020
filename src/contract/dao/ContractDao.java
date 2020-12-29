@@ -175,4 +175,44 @@ public class ContractDao {
 				rs.getInt("customer_review"), 
 				rs.getInt("provider_review"));		
 	}
+
+	public void updateCReview(Connection conn, Integer quoNum) throws SQLException {
+		String sql = "UPDATE contract SET customer_review=1 WHERE quo_no=?";
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, quoNum);
+			pstmt.executeUpdate();
+		}
+		
+	}
+	public void updatePReview(Connection conn, Integer quoNum) throws SQLException {
+		String sql = "UPDATE contract SET provider_review=1 WHERE quo_no=?";
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, quoNum);
+			pstmt.executeUpdate();
+		}
+		
+	}
+
+	public Contract selectByQuoNum(Connection conn, Integer quoNum) throws SQLException {
+		String sql = "SELECT * from contract WHERE quo_no=?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Contract contract = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, quoNum);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				contract = convertContract(rs);
+			}
+			return contract;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
 }
