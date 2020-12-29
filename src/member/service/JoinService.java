@@ -24,7 +24,7 @@ public class JoinService {
 			}
 
 			Member member = new Member(joinReq.getMember_id(), joinReq.getName(), joinReq.getPassword(),
-					joinReq.getAddress(), joinReq.getAnimal(), joinReq.getStatus());
+					joinReq.getAddress(), joinReq.getAnimal(), joinReq.getStatus(), 0, joinReq.getEmail(), joinReq.getPhone());
 
 			memberDao.insert(conn, member);
 

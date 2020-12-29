@@ -3,9 +3,9 @@ package auth.service;
 public class User {
 	private String member_id;
 	private String name;
-	private String status;
+	private Integer status;
 	
-	public User(String member_id, String name, String status) {
+	public User(String member_id, String name, Integer status) {
 		this.member_id = member_id;
 		this.name = name;
 		this.status = status;
@@ -23,10 +23,10 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 	

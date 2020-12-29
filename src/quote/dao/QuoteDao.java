@@ -354,6 +354,48 @@ public class QuoteDao {
 		}
 	}
 
+	public int selectCountById(Connection conn, String member_id) throws SQLException {
+		String sql = "SELECT COUNT(*) FROM quote WHERE complete=0 AND req_writer=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result = rs.getInt(1);
+				return result;
+			} else {
+				return 0;
+			}
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
+	public int selectCountByPId(Connection conn, String member_id) throws SQLException {
+		String sql = "SELECT COUNT(*) FROM quote WHERE complete=0 AND provider_id=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int result = rs.getInt(1);
+				return result;
+			} else {
+				return 0;
+			}
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+
 	
 
 }

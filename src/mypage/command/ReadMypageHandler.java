@@ -26,7 +26,7 @@ public class ReadMypageHandler implements CommandHandler{
 		String userId = user.getMember_id();
 		
 		//customer의 mypage 구성: 작성한 요청서, 받은 견적서, 이용내역
-		if (user.getStatus().equals("0")) {
+		if (user.getStatus() == 0) {
 			
 			//돌봄요청서
 			String pageNoVal = req.getParameter("pageNo");
@@ -62,7 +62,7 @@ public class ReadMypageHandler implements CommandHandler{
 		
 			
 		//provider의 mypage 구성: 보낸 견적서, 이용내역
-		} else if (user.getStatus().equals("1")) {
+		} else if (user.getStatus() == 1) {
 			
 			//내가 받은 견적서
 			String quotePageVal = req.getParameter("qpageNo");

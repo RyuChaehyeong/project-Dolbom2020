@@ -9,8 +9,10 @@ public class JoinRequest {
 	private String confirmPwd;
 	private String address;
 	private String animal;
-	private String status;
-
+	private Integer status;
+	private String email;
+	private String phone;
+	
 	public String getMember_id() {
 		return member_id;
 	}
@@ -47,14 +49,24 @@ public class JoinRequest {
 	public void setAnimal(String animal) {
 		this.animal = animal;
 	}
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
-	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public void validate(Map<String, Boolean> errors) {
 		checkEmpty(errors, member_id, "id");
 		checkEmpty(errors, name, "name");
@@ -62,7 +74,7 @@ public class JoinRequest {
 		checkEmpty(errors, confirmPwd, "confirmPwd");
 		checkEmpty(errors, address, "address");
 		checkEmpty(errors, animal, "animal");
-		checkEmpty(errors, status, "status");
+		checkEmpty(errors, status+"", "status");
 		
 		if (!errors.containsKey("confirmPwd")) {
 			if (!isPasswordEqualToConfirm()) {

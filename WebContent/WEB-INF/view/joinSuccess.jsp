@@ -79,7 +79,7 @@ a.active {
 			<div id="requestList" class="listContainer">
 			<c:if test="${param.status == '1' }">
 				<h4>
-					<a href="list.do" class="text_hide"> 돌봄서비스가<br /> 필요한 반려동물
+					<a href="${root }/request/list.do" class="text_hide"> 돌봄서비스가<br /> 필요한 반려동물
 						&nbsp; <i class="fas fa-angle-double-right"></i><br />찾으러가기
 					</a>
 				</h4>
@@ -87,7 +87,7 @@ a.active {
 			
 			<c:if test="${param.status == '0' }">
 				<h4>
-					<a href="list.do" class="text_hide"> 내 반려동물<br /> 돌봄요청
+					<a href="${root }/request/list.do" class="text_hide"> 내 반려동물<br /> 돌봄요청
 						&nbsp; <i class="fas fa-angle-double-right"></i><br /> 등록하기
 					</a>
 				</h4>

@@ -55,10 +55,6 @@
 	display: flex;
 	flex-direction: column;
 	background-color: #ffffe5;
-	height: 100%;
-	width: 23%;
-	padding: 30px;
-	background-color: #ffffe5;
 	height: 90%;
 	width: 23%;
 	padding: 30px;
@@ -117,7 +113,28 @@
 	padding-left: 45px;
 }
 
+.info-container {
+	display: flex;
+	flex-direction: row;
+	background-color: #ffffe5;
+	text-align: center;
+	padding-left: 23px;
+	padding-right: 23px;
+	margin-top: 30px;
+	margin-bottom: 20px;
 
+}
+
+.info-item {
+	border: 1px solid gray;
+	border-radius: 5%;
+	padding: 3px;
+	text-align: center;
+	margin-left: 5px;
+	margin-right: 5px;
+
+	
+}
 
 </style>
 </head>
@@ -184,7 +201,24 @@
 
 							<h3>${authUser.name }<c:if test="${authUser.status == '0'  }"> 회원님, </c:if><c:if test="${authUser.status == '1' }"> &nbsp;돌봄이님, 	</c:if></h3> <br />
 							<h3>안녕하세요!</h3>
-					
+							<div class="info-container">
+							<div class="info-item">
+							나의 평점 <br /> 
+							 <a href="${root }/review/read.do?target=${authUser.member_id }"> ${memberInfo.score }
+							</a>
+							</div>
+							<div class="info-item">
+							<c:if test="${authUser.status == '0'  }">
+								도착한 견적서 <br /> 
+								 <a href="${root }/mypage/read.do"> ${newQuoNum }</a>
+							 </c:if>
+							<c:if test="${authUser.status == '1'  }">
+								대기 중인 견적서 <br /> 
+								 <a href="${root }/mypage/read.do"> ${newQuoNum }</a>
+							 </c:if>
+							</div>
+						
+							</div>
 							<br /> 
 							<a class="btn btn-light" href="logout.do" role="button">로그아웃</a>
 							

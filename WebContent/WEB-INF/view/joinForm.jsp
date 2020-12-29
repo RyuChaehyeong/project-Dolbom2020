@@ -79,6 +79,14 @@
 					<label for="inputAddress">주소</label> <input type="text"
 						name="address" class="form-control" id="inputAddress">
 				</div>
+				<div class="form-group">
+					<label for="inputEmail">Email</label> <input type="text"
+						name="email" class="form-control" id="inputEmail">
+				</div>
+				<div class="form-group">
+					<label for="inputPhone">휴대폰 번호</label> <input type="text"
+						name="phone" class="form-control" id="inputPhone">
+				</div>
 
 
 

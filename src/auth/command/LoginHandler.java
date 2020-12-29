@@ -1,6 +1,7 @@
 package auth.command;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,11 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import auth.service.LoginFailException;
 import auth.service.LoginService;
 import auth.service.User;
+import member.model.Member;
+import member.service.ReadInfoService;
 import mvc.command.CommandHandler;
+import quote.service.CountQuoService;
 
 public class LoginHandler implements CommandHandler{
 	private static final String FORM_VIEW = "loginForm";
 	LoginService loginService = new LoginService();
+	ReadInfoService readInfoService = new ReadInfoService();
+	CountQuoService countQuoService = new CountQuoService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -32,7 +38,7 @@ public class LoginHandler implements CommandHandler{
 		return FORM_VIEW;
 	}
 
-	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws IOException {
+	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws IOException, SQLException {
 		String member_id = req.getParameter("id");
 		String password = req.getParameter("password");
 	
@@ -54,6 +60,23 @@ public class LoginHandler implements CommandHandler{
 		try {
 			User user = loginService.join(member_id, password);
 			req.getSession().setAttribute("authUser", user);
+			
+			Member memberInfo = readInfoService.read(member_id);
+			req.getSession().setAttribute("memberInfo", memberInfo);
+			
+			int newQuoNum = 0;
+			
+			if (user.getStatus() == 0 ) {
+				//일반회원은 새로 도착한 견적서
+				newQuoNum = countQuoService.countquo(member_id);
+				req.getSession().setAttribute("newQuoNum", newQuoNum);				
+		
+			} else if (user.getStatus() == 1) {	
+				//돌봄이 회원은 대기 중인 견적서
+				newQuoNum = countQuoService.countStandbyQuo(member_id);
+				req.getSession().setAttribute("newQuoNum", newQuoNum);
+			}
+			
 			res.sendRedirect(req.getContextPath()+"/index.jsp");
 			return null;
 		} catch (LoginFailException e) {
