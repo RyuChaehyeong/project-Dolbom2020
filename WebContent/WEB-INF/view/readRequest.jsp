@@ -81,7 +81,10 @@ $(function() {
 		<hr />
 		<div class="container">
 		<div style="padding-bottom: 50px; ">
-			<h2><i class="fas fa-envelope-open-text"></i> ${request.writer_id }님의 ${request.animal } 돌봄 요청글</h2>
+			<h2><i class="fas fa-envelope-open-text"></i> <a href="${root }/review/read.do?target=${request.writer_id }">
+						<c:out value="${request.writer_id }"></c:out>
+					</a> 님의 ${request.animal } 돌봄 요청글</h2>
+			
 		</div>
 		
 		<c:if test="${request.complete == '0' && authUser.status == '1'}">

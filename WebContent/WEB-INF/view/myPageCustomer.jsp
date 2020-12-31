@@ -201,7 +201,12 @@ th>.truncate, td>.truncate{
 					</a>
 				</div></td>
 				<td><div class="truncate" >${quote.price }</div></td>
-				<td><div class="truncate" >${quote.provider }</div></td>
+				<td><div class="truncate" >
+					<a href="${root }/review/read.do?target=${quote.provider }&qpageNo=${quotePage.currentPage}">
+						<c:out value="${quote.provider }"></c:out>
+					</a>
+					
+				</div></td>
 			
 			</tr>
 		
@@ -287,9 +292,8 @@ th>.truncate, td>.truncate{
 						<div class="truncate" ><a href="${root }/review/write.do?quoNum=${contract.quoNum }" 
 						class="btn btn-outline-danger btn-sm"  role="button">돌봄이 평가</a></div>
 					</c:if>
-					<c:if test="${contract.customerReview == '1' }">
-						<div class="truncate" ><a href="${root }/review/read.do?quoNum=${contract.quoNum }" 
-						class="btn btn-outline-danger btn-sm"  role="button">나의 후기</a></div>
+					<c:if test="${contract.providerReview == '1' }">
+						<div class="truncate" ><button type="button" class="btn btn-outline-secondary btn-sm" disabled>작성완료</button></div>
 					</c:if>
 				</td>
 				

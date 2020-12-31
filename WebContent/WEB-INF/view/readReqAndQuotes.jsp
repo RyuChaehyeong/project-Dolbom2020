@@ -136,7 +136,10 @@ $(function() {
 			</c:if>
 	
 				
-				<h2><i class="fas fa-envelope-open-text"></i>&nbsp;${quote.provider } 돌봄이의 견적서 </h2>
+				<h2><i class="fas fa-envelope-open-text"></i>&nbsp;<a href="${root }/review/read.do?target=${quote.provider }">
+						<c:out value="${quote.provider }"></c:out>
+					</a>돌봄이의 견적서 
+					 </h2>
 				<br />
 				<div class="form-group">
 					<label for="inputTitle">제목</label> 

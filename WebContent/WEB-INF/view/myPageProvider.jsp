@@ -50,8 +50,6 @@ padding: 15px;
 
 th>.truncate, td>.truncate{
   width: auto;
-  min-width: 0;
-  max-width: 200px;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -205,8 +203,7 @@ th>.truncate, td>.truncate{
 						class="btn btn-outline-danger btn-sm"  role="button">고객 평가</a></div>
 					</c:if>
 					<c:if test="${contract.providerReview == '1' }">
-						<div class="truncate" ><a href="${root }/review/read.do?quoNum=${contract.quoNum }" 
-						class="btn btn-outline-danger btn-sm"  role="button">나의 후기</a></div>
+						<div class="truncate" ><button type="button" class="btn btn-outline-secondary btn-sm" disabled>작성완료</button></div>
 					</c:if>
 				</td>
 				

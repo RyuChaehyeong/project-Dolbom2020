@@ -69,7 +69,9 @@ $(function() {
 		<hr />
 		<div class="container">
 		<div style="padding-bottom: 50px;">
-			<h2><i class="fas fa-envelope-open-text"></i>&nbsp;${quote.provider } 돌봄이의 견적서 상세보기</h2>
+			<h2><i class="fas fa-envelope-open-text"></i><a href="${root }/review/read.do?target=${quote.provider }">
+						<c:out value="${quote.provider }"></c:out>
+					</a> 돌봄이의 견적서 상세보기</h2>
 		</div>
 		
 		<c:if test="${fn:trim(quote.provider)==fn:trim(authUser.member_id)}">
@@ -126,11 +128,6 @@ $(function() {
 					</div>
 				</div>
 
-				
-		<div class="d-grid gap-2 d-md-flex justify-content-md-start" >
-			<a href="${root }/mypage/read.do" class="btn btn-outline-secondary btn-lg" style="margin-top: 20px"  role="button">
-			견적서 목록</a>
-		</div>
 
 		</div>
 
