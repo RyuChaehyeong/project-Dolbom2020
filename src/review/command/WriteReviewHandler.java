@@ -86,7 +86,7 @@ public class WriteReviewHandler implements CommandHandler {
 		WriteReview writeRv = null;
 		
 		//일반회원일 때는 quoNum으로 돌봄이를 평가
-		if (user.getStatus().equals("0")) {					
+		if (user.getStatus()==0) {					
 			writeRv = new WriteReview(
 					quote.getReqSum().getReqNo(), 
 					quoNum, 
@@ -96,7 +96,7 @@ public class WriteReviewHandler implements CommandHandler {
 					quote.getProvider());
 			
 		//돌봄이 회원은 reqNum으로 고객을 평가
-		} else if (user.getStatus().equals("1")) {
+		} else if (user.getStatus()==1) {
 			writeRv = new WriteReview(
 					quote.getReqSum().getReqNo(),
 					quoNum, 

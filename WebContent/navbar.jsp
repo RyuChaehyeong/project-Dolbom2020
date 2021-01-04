@@ -23,7 +23,7 @@ li {
 </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #93ae75;">
 	<!-- Image and text -->
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -36,14 +36,14 @@ li {
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active"><a class="nav-link"
-				href="${root }/index.jsp"> Home <i class="fas fa-igloo"></i><span
+				href="${root }/index.jsp"><i class="fas fa-paw"></i>&nbsp;Main<span
 					class="sr-only">(current)</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="${root }/request/list.do"> 게시글 <i
-					class="fas fa-clipboard-list"></i></a></li>
+				href="${root }/request/list.do"><i
+					class="fas fa-clipboard-list"></i> 돌봄목록</a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="${root }/request/write.do"> 글작성 <i
-					class="fas fa-pencil-alt"></i></a></li>
+				href="${root }/request/write.do"> <i
+					class="fas fa-pencil-alt"></i> 작성하기 </a></li>
 		</ul>
 
 		<u:notLogin>
@@ -61,10 +61,7 @@ li {
 					href="${root }/mypage/read.do"> 마이페이지 </a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="${root }/logout.do"> 로그아웃 <i class="fas fa-sign-out-alt"></i></a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="${root }/changePwd.do">비밀번호 변경</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="${root }/removeMember.do">회원 탈퇴</a></li>
+			
 			</ul>
 		</u:isLogin>
 

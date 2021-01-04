@@ -12,7 +12,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
 .footer {
-	background-color: #ffcdd2;
+	background-color:#94af76;
 	bottom: 15px;
 	padding: 30px;
 	width: 1400px;
@@ -27,6 +27,7 @@
 </style>
 </head>
 <body>
+	<hr />
 	<div class="footer">
 
 		<div class="myInfo">

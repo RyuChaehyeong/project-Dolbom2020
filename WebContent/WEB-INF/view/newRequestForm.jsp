@@ -25,19 +25,20 @@
 }
 
 .container {
-	width: 500px;
-	padding: 70px;
+	width: 80%;
+	padding: 100px;
 	margin-top: 100px;
 	margin-bottom: 100px;
-	
-	
+	border-top: 1px solid #93ae75; 
+	border-bottom: 1px solid #93ae75;
+}
+.form-group {
+	width: 85%;
+	margin-left: 40px;
+	font-size: 20px;
+	padding-bottom: 15px;
 }
 
-#submitBtn {
-	margin-top: 50px;
-	position: relative;
-	left: 50%;
-}
 </style>
 
 <script>
@@ -130,7 +131,7 @@ $(function() {
 				<div class="form-group">
 					 <label for="info">반려동물 특이사항 입력</label> 
 					  <br />
-					<textarea name="info" id="info" cols="124" rows="10">${param.info }</textarea>
+					<textarea name="info" id="info" cols="86" rows="10">${param.info }</textarea>
 					  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					  <c:if test="${errors.info }"><i class="fas fa-exclamation" style="color: red;"></i> 특이사항을 입력하세요.</c:if>
 					</div>
@@ -138,7 +139,7 @@ $(function() {
 				
 				
 		
-		<div class="d-grid gap-2 d-md-flex justify-content-md-start" >
+		<div style="margin-right: 1020px; margin-left:40px; margin-top: 40px; width: 120px;" >
 				<button id="submitBtn" type="submit" class="btn btn-outline-secondary btn-lg">등록하기</button>
 		</div>
 

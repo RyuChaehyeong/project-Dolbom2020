@@ -139,11 +139,7 @@ th>.truncate, td>.truncate{
 						</tr>
 			
 			</c:if>
-			
-		<div class="d-grid gap-2 d-md-flex justify-content-md-start" >
-		<a href="${root }/mypage/list.do?reqNo=${review.reqNo }" class="btn btn-outline-secondary" style="margin-top: 20px"  role="button">
-		견적서 목록</a>
-		</div>
+		
 	</div>
 		<%@ include file="footer.jsp"%>
 	</div>

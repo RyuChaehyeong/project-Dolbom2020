@@ -24,14 +24,21 @@
 }
 
 .container {
-	width: 500px;
-	padding: 70px;
+	width: 80%;
+	padding: 100px;
 	margin-top: 100px;
 	margin-bottom: 100px;
+	border-top: 1px solid #93ae75; 
+	border-bottom: 1px solid #93ae75;
 	
 	
 }
-
+.form-group {
+	width: 90%;
+	margin-left: 40px;
+	font-size: 20px;
+	padding-bottom: 15px;
+}
 #submitBtn {
 	margin-top: 50px;
 	position: relative;
@@ -39,7 +46,10 @@
 }
 
 .form-group {
-	width: 600px;
+	width: 70%;
+	margin-left: 40px;
+	font-size: 20px;
+	padding-bottom: 15px;
 }
 </style>
 
@@ -84,7 +94,7 @@ $(function() {
 					</div>
 				</div>
 				
-				<div>
+				<div class="form-group">
 					<label for="inputPrice">견적금액</label> 
 					<input type="number" name="price" value="${param.price }"
 						class="form-control" id="inputPrice" style=" width: 300px;">
@@ -94,18 +104,19 @@ $(function() {
 				</div>
 				
 				
-				<div>
+				<div class="form-group">
 					 <label for="info">경력 및 특이사항 입력</label> 
 					  <br />
-					<textarea name="info" id="info" cols="80" rows="10">${param.info }</textarea>
+					<textarea name="info" id="info" cols="85" rows="10">${param.info }</textarea>
 					  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					  <c:if test="${errors.info }"><i class="fas fa-exclamation" style="color: red;"></i> 특이사항을 입력하세요.</c:if>
 					</div>
 				</div>
-
+				
+				<div style="margin-right: 1020px; margin-top:50px; width: 90px;">
 					<input type="submit" value="견적서 보내기" 
-					class="btn btn-outline-secondary btn-lg"  id="submitBtn" style="width: 170px;"/>
-			
+					class="btn btn-outline-secondary btn-lg"  id="submitBtn"/>
+				</div>
 			</form>
 		</div>
 

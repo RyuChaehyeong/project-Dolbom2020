@@ -36,67 +36,71 @@
 }
 
 .container1 {
+	margin-top: 100px;
 	height: 500px;
 	padding-top: 20px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-evenly;
-	background-color: #ffcccb
 }
 
 .item1 {
-	background-color: #ffecb3;
 	height: 100%;
 	width: 73%;
+	margin-top:15px;
+	padding-left: 25px;
+	padding-right: 20px;
 }
 
 .loginForm {
 	display: flex;
 	flex-direction: column;
-	background-color: #ffffe5;
-	height: 90%;
+	height: 100%;
 	width: 23%;
 	padding: 30px;
+	background-color:#f8ffd7;
 }
 
 .container2 {
+	margin-bottom: 120px;
 	height: 550px;
 	padding-top: 20px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-evenly;
-	background-color: #ba6b6c;
 	align-content: center;
 }
 
 .item3 {
-	background-color: #ffecb3;
+	background-color:#f8ffd7;
 	height: 90%;
 	width: 48%;
+	margin: 10px;
 }
 
 .item4 {
-	background-color: #ffffe5;
+	background-color:#f8ffd7;
 	height: 90%;
 	width: 48%;
+	margin: 10px;
 }
 
 #loginBtn {
-	background-color: #ffffb3;
+	background-color: #f8ffd7;
 	color: black;
 	height: 40px;
 	width: 100%;
-	border-color: #ffffb3;
+	border-color: #ffccbc;
 	border-radius: 8px;
 }
 
 #requestList {
-	background-color: #f9fbe7;
+	background-color:#c5e1a5;
 	margin: 50px;
-	width: 80%;
-	height: 80%;
+	width: 75%;
+	height: 75%;
 	font-style: normal;
 }
 
@@ -116,19 +120,20 @@
 .info-container {
 	display: flex;
 	flex-direction: row;
-	background-color: #ffffe5;
 	text-align: center;
-	padding-left: 23px;
+	padding-left: 28px;
 	padding-right: 23px;
 	margin-top: 30px;
 	margin-bottom: 20px;
-
+	border-top: 2px solid  #93ae75;
+	border-bottom: 2px solid  #93ae75;
+	
+	
 }
 
 .info-item {
-	border: 1px solid gray;
-	border-radius: 5%;
-	padding: 3px;
+	padding-top: 7px;
+	padding-bottom: 7px;
 	text-align: center;
 	margin-left: 5px;
 	margin-right: 5px;
@@ -146,7 +151,7 @@
 			<%@ include file="header.jsp"%>
 			<%@ include file="navbar.jsp"%>
 			<div class="container1">
-				<div class="item1" style="padding: 30px 50px;">
+				<div class="item1">
 					<div id="carouselExampleIndicators" class="carousel slide"
 						data-ride="carousel">
 						<ol class="carousel-indicators">
@@ -157,15 +162,15 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="carousel-item active">
-								<img src="c1.jpg" style="height: 450px; width: 500px;"
+								<img src="puppy.jpg" style="height: 450px; width: 500px;"
 									class="w-100" alt="...">
 							</div>
 							<div class="carousel-item">
-								<img src="c2.jpg" style="height: 450px; width: 500px;"
+								<img src="cats.jpg" style="height: 450px; width: 500px;"
 									class="w-100" alt="...">
 							</div>
 							<div class="carousel-item">
-								<img src="c3.jpg" style="height: 450px; width: 500px;"
+								<img src="rabbit.jpg" style="height: 450px; width: 500px;"
 									class="w-100" alt="...">
 							</div>
 						</div>
@@ -185,8 +190,8 @@
 				<div class="loginForm">
 					<u:notLogin>
 						<form action="login.do" method="post"
-							style="padding: 10px; background-color: #ffe082">
-							<div class="form-group">
+							style="margin-top: 30px; padding: 20px; background-color: #c5e1a5; border-radius: 2%;">
+							<div class="form-group" style="margin-top: 15px;">
 								아이디 <input type="text" name="id" class="form-control"
 									id="exampleInputEmail1">
 							</div>
@@ -194,15 +199,16 @@
 								비밀번호 <input type="password" name="password" class="form-control" />
 							</div>
 
-							<button id="loginBtn" type="submit">로그인</button>
+							<button class="btn btn-light" style="width: 100%; margin-top: 15px; margin-bottom: 20px;" type="submit">로그인</button>
 						</form>
 					</u:notLogin>
 					<u:isLogin>
-
+							<div style=" margin-top: 45px; border-top: 2px solid #93ae75; border-bottom: 2px solid #93ae75; padding: 20px;">
 							<h3>${authUser.name }<c:if test="${authUser.status == '0'  }"> 회원님, </c:if><c:if test="${authUser.status == '1' }"> &nbsp;돌봄이님, 	</c:if></h3> <br />
 							<h3>안녕하세요!</h3>
+							</div>
 							<div class="info-container">
-							<div class="info-item">
+							<div class="info-item" style="padding-right: 20px;">
 							나의 평점 <br /> 
 							 <a href="${root }/review/read.do?target=${authUser.member_id }"> ${memberInfo.score }
 							</a>
@@ -213,7 +219,7 @@
 								 <a href="${root }/mypage/read.do"> ${newQuoNum }</a>
 							 </c:if>
 							<c:if test="${authUser.status == '1'  }">
-								대기 중인 견적서 <br /> 
+								대기 견적서 <br /> 
 								 <a href="${root }/mypage/read.do"> ${newQuoNum }</a>
 							 </c:if>
 							</div>
@@ -223,10 +229,6 @@
 							<a class="btn btn-light" href="logout.do" role="button">로그아웃</a>
 							
 					</u:isLogin>
-					<div style="padding: 20px; margin-top: 10px;">
-						<a href="https://www.animals.or.kr/"><img src="banner1.png"
-							alt="HTML tutorial" style="width: 212px; height: 68px;"></a>
-					</div>
 				</div>
 
 

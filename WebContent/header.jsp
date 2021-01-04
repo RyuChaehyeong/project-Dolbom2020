@@ -15,18 +15,18 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <style>
 .header {
-	background-color: #f3e5f5;
+	background-color: #f8ffd7;
 	text-align: center;
-	padding-top: 100px;
+	padding-top: 120px;
 	padding-bottom: 70px;
-	height: 200px;
+	height: 220px;
 	width: 1400px;
 }
 </style>
 </head>
 <body>
 <div class="header">
-<h1>DolBom</h1>
+<h1><i class="fas fa-paw"></i>&nbsp;DolBom&nbsp;<i class="fas fa-paw"></i></h1>
 
 </div>
 </body>

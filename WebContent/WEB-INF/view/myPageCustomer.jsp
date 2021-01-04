@@ -97,7 +97,7 @@ th>.truncate, td>.truncate{
 		<tbody>
 		<c:if test="${requestPage.hasNoRequests() }">
 			<tr>
-				<td colspan="4"><div class="truncate" >게시글이 없습니다.</div></td>
+				<td colspan="6"><div class="truncate" >게시글이 없습니다.</div></td>
 			</tr>
 		</c:if>
 
@@ -131,7 +131,7 @@ th>.truncate, td>.truncate{
 
 		<c:if test="${requestPage.hasRequests() }">
 			<tr>
-				<td colspan="4">
+				<td colspan="6">
 					<nav aria-label="Page navigation example" style="padding-top: 40px;">
 					<ul class="pagination justify-content-center">
 					
@@ -286,13 +286,16 @@ th>.truncate, td>.truncate{
 						<c:out value="견적서 보기" />
 					</a></div>
 				</td>
-				<td>${contract.providerId }</td>
+				<td><div class="truncate" >
+					<a href="${root }/member/contact.do?memberId=${contract.providerId }&cpageNo=${contractPage.currentPage}">
+						<c:out value="${contract.providerId }" />
+					</a></div></td>
 				<td>
 					<c:if test="${contract.customerReview == '0' }">
 						<div class="truncate" ><a href="${root }/review/write.do?quoNum=${contract.quoNum }" 
 						class="btn btn-outline-danger btn-sm"  role="button">돌봄이 평가</a></div>
 					</c:if>
-					<c:if test="${contract.providerReview == '1' }">
+					<c:if test="${contract.customerReview == '1' }">
 						<div class="truncate" ><button type="button" class="btn btn-outline-secondary btn-sm" disabled>작성완료</button></div>
 					</c:if>
 				</td>

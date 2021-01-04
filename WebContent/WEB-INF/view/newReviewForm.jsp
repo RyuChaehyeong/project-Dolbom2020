@@ -34,13 +34,18 @@
 }
 
 #submitBtn {
-	margin-top: 50px;
 	position: relative;
 	left: 50%;
 }
 
 .form-group {
-	width: 100px;
+	width: 200px;
+	font-size: 20px;
+}
+
+.infoBox {
+	padding: 20px;
+	margin: 40px;
 }
 </style>
 
@@ -54,11 +59,12 @@
 		<%@ include file="navbar.jsp"%>
 		<br />
 		<hr />
-		<div class="container">
-		<div style="padding-bottom: 50px;">
+		<div class="container" style="border-top: 1px solid #93ae75; border-bottom: 1px solid #93ae75;">
+		<div style="padding-bottom: 50px; margin-left: 40px;">
 			<h2><i class="fas fa-pen-alt"></i> &nbsp;후기작성</h2>
 		</div>
 			<form action="${root }/review/write.do?quoNum=${param.quoNum }" method="post" >
+				<div class="infoBox" style="background-color: #f8ffd7; width: 55%;">
 				<c:if test="${authUser.status == '0'  }">
 					<h2>${quote.provider } 돌봄이님을 평가해주세요.</h2> <br />
 					
@@ -68,26 +74,30 @@
 					<a href="${root }/quote/read.do?no=${quote.quoteNo }" class="text_hide">${quote.title}</a>	
 				</c:if>
 				<c:if test="${authUser.status == '1'  }">
-					<h2>${quote.reqSum.reqWriter } 회원님을 평가해주세요.</h2>
+					<h2>${quote.reqSum.reqWriter } 회원님을 평가해주세요.</h2> <br />
 					<label for="inputScore">돌봄 요청: </label> 
 					<a href="${root }/request/read.do?reqNo=${quote.reqSum.reqNo }" class="text_hide">${quote.reqSum.reqTitle}</a> <br />
 					<label for="inputScore"> 내가 보낸 견적서: </label> 
 					<a href="${root }/quote/read.do?no=${quote.quoteNo }" class="text_hide">${quote.title}</a>	
 				</c:if>
+				</div>
+				<div style="padding: 10px;	margin: 40px;">
 				<div class="form-group">
-					<label for="inputScore">평점</label> 
+					<label for="inputScore">평점 (1-10점)</label> 
 					<input type="number" name="score" value="${param.score }" class="form-control" id="inputScore" min="0" max="10">
 				</div>
 				<div class="form-group">
 					<label for="inputText">코멘트</label>
-					<textarea name="comment" id="inputText" cols="30" rows="10">${param.comment }</textarea>
+					<textarea name="comment" id="inputText" cols="54" rows="10">${param.comment }</textarea>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					<c:if test="${errors.comment }"><i class="fas fa-exclamation" style="color: red;"></i> 코멘트를 입력하세요.</c:if>  
 					</div>
 				</div>
-				
-					<input type="submit" value="후기등록" 
-					class="btn btn-outline-secondary btn-lg"  id="submitBtn" style="width: 170px;"/>
+				</div>
+					<div style = "margin-left: 15px; margin-right: 1020px; margin-top: 70px;">
+					<input type="submit" value="후기등록" class="btn btn-outline-secondary btn-lg"  id="submitBtn" style="width: 170px;"/>
+					</div>
+
 			
 			</form>
 		</div>

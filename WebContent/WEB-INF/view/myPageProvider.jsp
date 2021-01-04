@@ -196,7 +196,10 @@ th>.truncate, td>.truncate{
 						<c:out value="견적서 보기" />
 					</a></div>
 				</td>
-				<td>${contract.customerId }</td>
+				<td><div class="truncate" >
+					<a href="${root }/member/contact.do?memberId=${contract.customerId }&cpageNo=${contractPage.currentPage}">
+						<c:out value="${contract.customerId }" />
+					</a></div></td>
 				<td>
 					<c:if test="${contract.providerReview == '0' }">
 						<div class="truncate" ><a href="${root }/review/write.do?quoNum=${contract.quoNum }" 

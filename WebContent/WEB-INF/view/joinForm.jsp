@@ -31,21 +31,22 @@
 }
 
 .container {
-	width: 500px;
-	padding: 70px;
-	
-	border: 1px solid lightgray;
+	width: 80%;
+	padding: 100px;
 	margin-top: 100px;
 	margin-bottom: 100px;
+	border-top: 1px solid #93ae75; 
+	border-bottom: 1px solid #93ae75;
 	
 	
+}
+.form-group {
+	width: 70%;
+	margin-left: 40px;
+	font-size: 20px;
+	padding-bottom: 15px;
 }
 
-#submitBtn {
-	margin-top: 50px;
-	position: relative;
-	left: 50%;
-}
 </style>
 </head>
 <body>
@@ -56,9 +57,11 @@
 		<%@ include file="header.jsp"%>
 		<%@ include file="navbar.jsp"%>
 
-		<div class="container">
+		<div class="container" >
 			<form action="join.do" method="post">
-
+				<div style="margin-bottom: 50px; margin-left: 30px;">
+					<h2><i class="fas fa-pen-alt"></i> &nbsp;회원가입</h2>
+				</div>
 				<div class="form-group">
 					<label for="inputName">이름</label> <input type="text" name="name"
 						class="form-control" id="inputName">
@@ -119,8 +122,9 @@
 					</div>
 				</div>
 
-
-				<button id=submitBtn type="submit" class="btn btn-primary">회원가입</button>
+				<div style="margin-right: 1020px; margin-top:80px; margin-left: 40px; width: 110px;">
+				<button id=submitBtn type="submit" class="btn btn-outline-danger btn-lg">회원가입</button>
+				</div>
 
 			</form>
 		</div>
