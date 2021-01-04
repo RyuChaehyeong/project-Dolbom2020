@@ -21,7 +21,7 @@ $(function() {
 	$("#submitBtn").click(function(){
 		var c = confirm("수정하시겠습니까?");
 		if (c) {
-			location.href="modify.do?no=${param.no}";
+			location.href="modify.do?reqNo=${param.no}";
 		}
 	});
 });
@@ -72,7 +72,7 @@ $(function() {
 				</div>
 			</c:if>
 			<form action="${root }/request/modify.do" method="post">
-				<input type="text" name="no" value="${param.no }" hidden />
+				<input type="text" name="reqNo" value="${param.reqNo }" hidden />
 				<div class="form-group">
 					<label for="inputTitle">제목</label> 
 					<input type="text" name="title" class="form-control" id="inputTitle" value="${param.title } ">					

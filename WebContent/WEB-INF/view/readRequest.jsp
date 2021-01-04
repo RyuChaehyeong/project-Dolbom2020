@@ -106,7 +106,7 @@ $(function() {
 			
 			
 			<form action="${root }/request/modify.do" method="post">
-				<input type="text" name="no" value="${request.reqNo }" hidden />
+				<input type="text" name="reqNo" value="${request.reqNo }" hidden />
 				
 				<div class="form-group">
 					<label for="inputTitle">제목</label> 

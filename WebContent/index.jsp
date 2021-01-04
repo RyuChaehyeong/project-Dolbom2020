@@ -36,7 +36,7 @@
 }
 
 .container1 {
-	margin-top: 100px;
+	margin-top: 130px;
 	height: 500px;
 	padding-top: 20px;
 	display: flex;
@@ -63,7 +63,7 @@
 }
 
 .container2 {
-	margin-bottom: 120px;
+	margin-bottom: 130px;
 	height: 550px;
 	padding-top: 20px;
 	display: flex;

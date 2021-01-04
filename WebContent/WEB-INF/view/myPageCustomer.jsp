@@ -259,7 +259,7 @@ th>.truncate, td>.truncate{
 			<th><div class="truncate" >계약 번호</div></th>
 			<th><div class="truncate" >요청 번호</div></th>
 			<th><div class="truncate" >견적서 번호</div></th>
-			<th><div class="truncate">돌봄이</div></th>
+			<th><div class="truncate">연락정보</div></th>
 			<th><div class="truncate" >후기</div></th>
 			
 		</tr>

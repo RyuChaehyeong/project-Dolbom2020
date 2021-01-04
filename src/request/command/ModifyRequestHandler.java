@@ -34,8 +34,9 @@ public class ModifyRequestHandler implements CommandHandler {
 
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
 		User authUser = (User) req.getSession().getAttribute("authUser");
-		String noVal = req.getParameter("no");
-		int no = Integer.parseInt(noVal);
+		String noVal = req.getParameter("reqNo");
+		System.out.println(noVal);
+		Integer no = Integer.parseInt(noVal);
 
 		Map<String, Boolean> errors = new HashMap<String, Boolean>();
 		req.setAttribute("errors", errors);
@@ -51,7 +52,7 @@ public class ModifyRequestHandler implements CommandHandler {
 
 		try {
 			modifyService.modify(modReq);
-			res.sendRedirect(req.getContextPath() + "/request/read.do?no=" + no);
+			res.sendRedirect(req.getContextPath() + "/request/read.do?reqNo=" + no);
 			return null;
 		} catch (RequestNotFoundException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
