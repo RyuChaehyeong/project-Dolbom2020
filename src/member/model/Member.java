@@ -4,25 +4,56 @@ public class Member {
 	private String member_id;
 	private String name;
 	private String password;
-	private String address;
 	private String animal;
 	private Integer status;
 	private double score;
 	private String email;
 	private String phone;
-	
+	private String postcode;
+	private String roadAddress;
+	private String detailAddress;
 
-	public Member(String member_id, String name, String password, String address, String animal, Integer status,
-			double score, String email, String phone) {
+
+
+	public Member(String member_id, String name, String password, String animal, Integer status,
+			double score, String email, String phone, String postcode, String roadAddress, String detailAddress) {
 		this.member_id = member_id;
 		this.name = name;
 		this.password = password;
-		this.address = address;
 		this.animal = animal;
 		this.status = status;
 		this.score = score;
 		this.email = email;
 		this.phone = phone;
+		this.postcode = postcode;
+		this.roadAddress = roadAddress;
+		this.detailAddress = detailAddress;
+
+	}
+	
+	
+	public String getPostcode() {
+		return postcode;
+	}
+	
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+	
+	public String getRoadAddress() {
+		return roadAddress;
+	}
+	
+	public void setRoadAddress(String roadAddress) {
+		this.roadAddress = roadAddress;
+	}
+
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
 	}
 
 	public String getMember_id() {
@@ -43,12 +74,7 @@ public class Member {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
+
 	public String getAnimal() {
 		return animal;
 	}

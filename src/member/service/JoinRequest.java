@@ -7,12 +7,34 @@ public class JoinRequest {
 	private String name;
 	private String password;
 	private String confirmPwd;
-	private String address;
 	private String animal;
 	private Integer status;
 	private String email;
 	private String phone;
+	private String postcode;
+	private String roadAddress;
+	private String detailAddress;
 	
+	
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
+	}
+	public String getPostcode() {
+		return postcode;
+	}
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+	public String getRoadAddress() {
+		return roadAddress;
+	}
+	public void setRoadAddress(String roadAddress) {
+		this.roadAddress = roadAddress;
+	}
+
 	public String getMember_id() {
 		return member_id;
 	}
@@ -37,12 +59,7 @@ public class JoinRequest {
 	public void setConfirmPwd(String confirmPwd) {
 		this.confirmPwd = confirmPwd;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
+
 	public String getAnimal() {
 		return animal;
 	}
@@ -72,9 +89,13 @@ public class JoinRequest {
 		checkEmpty(errors, name, "name");
 		checkEmpty(errors, password, "password");
 		checkEmpty(errors, confirmPwd, "confirmPwd");
-		checkEmpty(errors, address, "address");
+		checkEmpty(errors, phone, "phone");
+		checkEmpty(errors, email, "email");
 		checkEmpty(errors, animal, "animal");
 		checkEmpty(errors, status+"", "status");
+		checkEmpty(errors, postcode, "postcode");
+		checkEmpty(errors, detailAddress, "detailAddress");
+
 		
 		if (!errors.containsKey("confirmPwd")) {
 			if (!isPasswordEqualToConfirm()) {

@@ -36,7 +36,7 @@
 }
 
 .container1 {
-	margin-top: 130px;
+	margin-top: 10px;
 	height: 500px;
 	padding-top: 20px;
 	display: flex;
@@ -150,6 +150,12 @@
 		<div class="container0">
 			<%@ include file="header.jsp"%>
 			<%@ include file="navbar.jsp"%>
+			<div style="padding-left: 50px; margin-top: 50px;">
+			<h1>안녕하세요! 돌봄 서비스 개발자 유채형입니다.</h1>
+			<br>
+			<p>  &nbsp; &nbsp;일반 회원 로그인은 id: haein88, pw: 123로 </p>
+			<p>  &nbsp; &nbsp;돌봄이 회원 로그인은 id: jaeseok72, pw: 123로 해보세요!</p>
+			</div>
 			<div class="container1">
 				<div class="item1">
 					<div id="carouselExampleIndicators" class="carousel slide"

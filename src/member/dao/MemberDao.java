@@ -11,7 +11,7 @@ import member.model.Member;
 public class MemberDao {
 
 	public Member selectById(Connection conn, String member_id) {
-		String sql = "SELECT member_id, name, password, address, animal, status, score, email, phone "
+		String sql = "SELECT member_id, name, password, animal, status, score, email, phone, postcode, roadaddress, DETAILADDRESS  "
 				+ "FROM dolbom_member "
 				+ "WHERE member_id=?";
 		Member member = null;
@@ -28,13 +28,16 @@ public class MemberDao {
 				member = new Member(
 						rs.getString(col++),
 						rs.getString(col++),
-						rs.getString(col++),
 						rs.getString(col++), 
 						rs.getString(col++), 
 						rs.getInt(col++),
 						rs.getDouble(col++),
 						rs.getString(col++),
-						rs.getString(col++));
+						rs.getString(col++),
+						rs.getString(col++),
+						rs.getString(col++),
+						rs.getString(col++)
+						);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,8 +48,9 @@ public class MemberDao {
 	}
 
 	public void insert(Connection conn, Member member) throws SQLException {
-		String sql = "INSERT INTO dolbom_member (member_id, name, password, address, animal, status, score, email, phone ) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ? ,? ,?)";
+		String sql = "INSERT INTO dolbom_member (member_id, name, password, "
+				+ "animal, status, score, email, phone, postcode, roadAddress, DETAILADDRESS ) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ? ,? ,?, ?, ?)";
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -55,12 +59,15 @@ public class MemberDao {
 			pstmt.setString(col++, member.getMember_id());
 			pstmt.setString(col++, member.getName());
 			pstmt.setString(col++, member.getPassword());
-			pstmt.setString(col++, member.getAddress());
 			pstmt.setString(col++, member.getAnimal());
 			pstmt.setInt(col++, member.getStatus());
 			pstmt.setDouble(col++, member.getScore());
 			pstmt.setString(col++, member.getEmail());
 			pstmt.setString(col++, member.getPhone());
+			pstmt.setString(col++, member.getPostcode());
+			pstmt.setString(col++, member.getRoadAddress());
+			pstmt.setString(col++, member.getDetailAddress());
+			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
