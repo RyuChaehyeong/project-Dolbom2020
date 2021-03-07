@@ -22,7 +22,7 @@ public class SearchRequestService {
 			if (searchReq.getField().equals("animal")) {
 				reqList = requestDao.selectSearchAni(conn, pageNo, size, searchReq);			
 				totalSearchedReq = requestDao.selectCountSearchAni(conn, searchReq);				
-			} else if (searchReq.getField().equals("location")) {
+			} else if (searchReq.getField().equals("roadaddress")) {
 				reqList = requestDao.selectSearchLoc(conn, pageNo, size, searchReq);			
 				totalSearchedReq = requestDao.selectCountSearchLoc(conn, searchReq);								
 			}

@@ -98,7 +98,7 @@ public class WriteRequestHandler implements CommandHandler {
 		}
 
 		return new WriterRequest(new Writer(user.getMember_id(), user.getName()), req.getParameter("title"),
-				req.getParameter("animal"), startDate, endDate, req.getParameter("loc"), req.getParameter("info"));
+				req.getParameter("animal"), startDate, endDate, req.getParameter("postcode"), req.getParameter("roadAddress"),req.getParameter("info"));
 	}
 
 	private boolean endIsAfter(Date startDate, Date endDate) {

@@ -134,7 +134,7 @@ $(function() {
 				
 				<div class="form-group">
 					<label for="inputLoc">지역</label>
-					<input type="text" name="loc" class="form-control" id="inputLoc" value="${request.local }" readonly>
+					<input type="text" name="loc" class="form-control" id="inputLoc" value="${request.roadAddress }" readonly>
 
 				</div>
 				

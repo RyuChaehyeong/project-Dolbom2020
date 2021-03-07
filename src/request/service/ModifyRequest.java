@@ -10,21 +10,50 @@ public class ModifyRequest {
 	private String animal;
 	private Date startDate;
 	private Date endDate;
-	private String local;
+	private String postcode;
+	private String roadaddress;
 	private String info;
 	
+
+
 	public ModifyRequest(Integer reqNo, String writer_id, String title, String animal, Date startDate, Date endDate,
-			String local, String info) {
-		super();
+			String postcode, String roadaddress, String info) {
 		this.reqNo = reqNo;
 		this.writer_id = writer_id;
 		this.title = title;
 		this.animal = animal;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.local = local;
+		this.postcode = postcode;
+		this.roadaddress = roadaddress;
 		this.info = info;
 	}
+
+	
+	
+	public String getPostcode() {
+		return postcode;
+	}
+
+
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+
+
+	public String getRoadaddress() {
+		return roadaddress;
+	}
+
+
+
+	public void setRoadaddress(String roadaddress) {
+		this.roadaddress = roadaddress;
+	}
+
+
 
 	public Integer getReqNo() {
 		return reqNo;
@@ -74,13 +103,6 @@ public class ModifyRequest {
 		this.endDate = endDate;
 	}
 
-	public String getLocal() {
-		return local;
-	}
-
-	public void setLocal(String local) {
-		this.local = local;
-	}
 
 	public String getInfo() {
 		return info;
@@ -97,8 +119,8 @@ public class ModifyRequest {
 		if (animal.equals("돌봄동물을 선택하세요.")) {
 			errors.put("animal", true);
 		}
-		if (local == null || local.isEmpty()) {
-			errors.put("local", true);
+		if (postcode == null || postcode.isEmpty()) {
+			errors.put("postcode", true);
 		}
 		if (info == null || info.isEmpty()) {
 			errors.put("info", true);

@@ -44,7 +44,7 @@
 		<%@ include file="header.jsp"%>
 		<%@ include file="navbar.jsp"%>
 
-		<div class="container">
+		<div class="container" style="width: 400px;">
 			<form action="login.do" method="post"
 							style="padding: 10px;">
 							<div class="form-group">

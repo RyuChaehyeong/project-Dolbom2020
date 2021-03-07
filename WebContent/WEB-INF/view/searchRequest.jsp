@@ -116,7 +116,7 @@ th>.truncate, td>.truncate{
 				
 				<td><div class="truncate" >${request.animal }</div></td>
 				<td><div class="truncate" >${request.startDate } ~ ${request.endDate }</div></td>
-				<td><div class="truncate" >${request.local }</div></td>
+				<td><div class="truncate" >${request.roadAddress }</div></td>
 				<c:if test="${request.complete == '1' }">
 				<td>마감</td>
 				</c:if>

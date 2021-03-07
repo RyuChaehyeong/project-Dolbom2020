@@ -57,7 +57,7 @@ th>.truncate, td>.truncate{
   width: auto;
   min-width: 0;
   max-width: 200px;
-  display: inline-block;
+  display: inline-bk;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -115,7 +115,7 @@ th>.truncate, td>.truncate{
 				
 				<td><div class="truncate" >${request.animal }</div></td>
 				<td><div class="truncate" >${request.startDate } ~ ${request.endDate }</div></td>
-				<td><div class="truncate" >${request.local }</div></td>
+				<td><div class="truncate" >${request.roadAddress }</div></td>
 				<c:if test="${request.complete == '1' }">
 				<td>마감</td>
 				</c:if>
@@ -165,7 +165,7 @@ th>.truncate, td>.truncate{
 				<select name="field"class="form-control" >
 					<option selected>검색항목</option>
 					<option value="animal">돌봄 동물</option>
-					<option value="location">지역</option>
+					<option value="roadaddress">지역</option>
 				</select>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<c:if test="${errors.animal }"><i class="fas fa-exclamation" style="color: red;"></i> 돌봄동물을 선택하세요.</c:if> 					

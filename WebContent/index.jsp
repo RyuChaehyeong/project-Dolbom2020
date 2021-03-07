@@ -107,6 +107,7 @@
 .listContainer {
 	position: relative;
 }
+
 .text_hide {
 	display: block;
 	color: black;
@@ -153,8 +154,9 @@
 			<div style="padding-left: 50px; margin-top: 50px;">
 			<h1>안녕하세요! 돌봄 서비스 개발자 유채형입니다.</h1>
 			<br>
-			<p>  &nbsp; &nbsp;일반 회원 로그인은 id: haein88, pw: 123로 </p>
-			<p>  &nbsp; &nbsp;돌봄이 회원 로그인은 id: jaeseok72, pw: 123로 해보세요!</p>
+			<p>	 &nbsp; &nbsp;첫 방문 하신 분들은 <b><a href="${root }/preview.jsp">공지사항</a></b> 먼저 확인해주시길 바랍니다. </p>
+			<p>  &nbsp; &nbsp;<b>일반 회원</b> 로그인은 id: haein88, pw: 123로 </p>
+			<p>  &nbsp; &nbsp;<b>돌봄이 회원</b> 로그인은 id: jaeseok72, pw: 123로 해보세요!</p>
 			</div>
 			<div class="container1">
 				<div class="item1">

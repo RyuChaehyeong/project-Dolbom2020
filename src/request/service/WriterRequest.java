@@ -11,18 +11,38 @@ public class WriterRequest {
 	private String animal;
 	private Date startDate;
 	private Date endDate;
-	private String local;
+	private String postcode;
+	private String roadAddress;
 	private String info;
-	public WriterRequest(Writer writer, String title, String animal, Date startDate, Date endDate, String local,
-			String info) {
+
+	public WriterRequest(Writer writer, String title, String animal, Date startDate, Date endDate, String postcode,
+			String roadAddress, String info) {
 		this.writer = writer;
 		this.title = title;
 		this.animal = animal;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.local = local;
+		this.postcode = postcode;
+		this.roadAddress = roadAddress;
 		this.info = info;
 	}
+	
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getRoadAddress() {
+		return roadAddress;
+	}
+
+	public void setRoadAddress(String roadAddress) {
+		this.roadAddress = roadAddress;
+	}
+
 	public Writer getWriter() {
 		return writer;
 	}
@@ -53,12 +73,7 @@ public class WriterRequest {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public String getLocal() {
-		return local;
-	}
-	public void setLocal(String local) {
-		this.local = local;
-	}
+
 	public String getInfo() {
 		return info;
 	}
@@ -74,8 +89,8 @@ public class WriterRequest {
 			errors.put("animal", true);
 		}
 		
-		if (local == null || local.trim().isEmpty()) {
-			errors.put("local", true);
+		if (postcode == null || postcode.trim().isEmpty()) {
+			errors.put("postcode", true);
 		}
 		if (info == null || info.trim().isEmpty()) {
 			errors.put("info", true);

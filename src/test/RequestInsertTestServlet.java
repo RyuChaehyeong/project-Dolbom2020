@@ -56,7 +56,7 @@ public class RequestInsertTestServlet extends HttpServlet {
 		}
 		java.sql.Date sqlStart = new java.sql.Date(start.getTime());
 		java.sql.Date sqlEnd = new java.sql.Date(end.getTime());
-		
+	/*	
 		Request req = new Request(
 				0, 
 				"a", 
@@ -80,6 +80,7 @@ public class RequestInsertTestServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	 */
 	}
 
 	/**

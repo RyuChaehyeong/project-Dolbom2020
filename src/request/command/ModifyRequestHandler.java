@@ -96,7 +96,7 @@ public class ModifyRequestHandler implements CommandHandler {
 		java.sql.Date sqlEnd = new java.sql.Date(endDate.getTime());
 
 		return new ModifyRequest(no, authUser.getMember_id(), req.getParameter("title"), req.getParameter("animal"),
-				sqlStart, sqlEnd, req.getParameter("loc"), req.getParameter("info"));
+				sqlStart, sqlEnd, req.getParameter("postcode"), req.getParameter("roadaddress"), req.getParameter("info"));
 	}
 
 	private boolean endIsAfter(Date startDate, Date endDate) {

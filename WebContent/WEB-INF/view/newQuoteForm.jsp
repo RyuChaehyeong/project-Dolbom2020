@@ -97,7 +97,7 @@ $(function() {
 				<div class="form-group">
 					<label for="inputPrice">견적금액</label> 
 					<input type="number" name="price" value="${param.price }"
-						class="form-control" id="inputPrice" style=" width: 300px;">
+						class="form-control" id="inputPrice" style=" width: 300px;" min="0" max="1000000">
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					<c:if test="${errors.price }"><i class="fas fa-exclamation" style="color: red;"></i> 견적금액을 입력하세요.</c:if>
 					</div>

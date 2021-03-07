@@ -17,20 +17,22 @@ import request.service.SearchRequest;
 public class RequestDao {
 
 	public Request insert(Connection conn, Request request) throws SQLException {
-		String sql = "INSERT INTO request (title, start_date, end_date, location, animal, writer_id, info, quote_cnt, complete ) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)";
+		String sql = "INSERT INTO request (title, start_date, end_date, postcode, roadaddress, animal, writer_id, info, quote_cnt, complete ) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 0)";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
 			pstmt = conn.prepareStatement(sql, new String[] {"req_no"});
-			pstmt.setString(1, request.getTitle());
-			pstmt.setDate(2, request.getStartDate());
-			pstmt.setDate(3, request.getEndDate());
-			pstmt.setString(4, request.getLocal());
-			pstmt.setString(5, request.getAnimal());
-			pstmt.setString(6, request.getWriter_id());
-			pstmt.setString(7,  request.getInfo());
+			int col = 1;
+			pstmt.setString(col++, request.getTitle());
+			pstmt.setDate(col++, request.getStartDate());
+			pstmt.setDate(col++, request.getEndDate());
+			pstmt.setString(col++, request.getPostcode());
+			pstmt.setString(col++, request.getRoadAddress());
+			pstmt.setString(col++, request.getAnimal());
+			pstmt.setString(col++, request.getWriter_id());
+			pstmt.setString(col++,  request.getInfo());
 			
 			int cnt = pstmt.executeUpdate();
 			
@@ -46,7 +48,8 @@ public class RequestDao {
 						request.getAnimal(), 
 						request.getStartDate(), 
 						request.getEndDate(), 
-						request.getLocal(), 
+						request.getPostcode(),
+						request.getRoadAddress(),
 						request.getInfo(),
 						0,
 						0);
@@ -84,7 +87,8 @@ public class RequestDao {
 				+ "title, "
 				+ "start_date, "
 				+ "end_date, "
-				+ "location, "
+				+ "postcode,"
+				+ "roadaddress, "
 				+ "animal, "
 				+ "writer_id, "
 				+ "info, "
@@ -95,7 +99,8 @@ public class RequestDao {
 				+ " 		   title, "
 				+ "       start_date, "
 				+ "        end_date, "
-				+ "        location, "
+				+ "        postcode,"
+				+ " 		roadaddress,"
 				+ "      	animal, "
 				+ "        writer_id, "
 				+ "			info, "
@@ -135,7 +140,8 @@ public class RequestDao {
 				rs.getString("animal"),
 				rs.getDate("start_date"),
 				rs.getDate("end_date"),
-				rs.getString("location"),
+				rs.getString("postcode"),
+				rs.getString("roadaddress"),
 				rs.getString("info"),
 				rs.getInt("quote_cnt"),
 				rs.getInt("complete"));
@@ -170,21 +176,24 @@ public class RequestDao {
 				+ "SET title=?, "
 				+ "start_date=?, "
 				+ "end_date=?, "
-				+ "location=?, "
+				+ "postcode=?,"
+				+ "roadaddress=?, "
 				+ "animal=?, "
 				+ "writer_id=?, "
 				+ "info=? "
 				+ "WHERE req_no=?";
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, modReq.getTitle());
-			pstmt.setDate(2, modReq.getStartDate());
-			pstmt.setDate(3, modReq.getEndDate());
-			pstmt.setString(4, modReq.getLocal());
-			pstmt.setString(5, modReq.getAnimal());
-			pstmt.setString(6, modReq.getWriter_id());
-			pstmt.setString(7, modReq.getInfo());
-			pstmt.setInt(8, modReq.getReqNo());
+			int col = 1;
+			pstmt.setString(col++, modReq.getTitle());
+			pstmt.setDate(col++, modReq.getStartDate());
+			pstmt.setDate(col++, modReq.getEndDate());
+			pstmt.setString(col++, modReq.getPostcode());
+			pstmt.setString(col++, modReq.getRoadaddress());
+			pstmt.setString(col++, modReq.getAnimal());
+			pstmt.setString(col++, modReq.getWriter_id());
+			pstmt.setString(col++, modReq.getInfo());
+			pstmt.setInt(col++, modReq.getReqNo());
 			
 			pstmt.executeUpdate();
 		}
@@ -209,7 +218,8 @@ public class RequestDao {
 				+ "title, "
 				+ "start_date, "
 				+ "end_date, "
-				+ "location, "
+				+ "postcode,"
+				+ "roadaddress, "
 				+ "animal, "
 				+ "writer_id, "
 				+ "info, "
@@ -220,7 +230,8 @@ public class RequestDao {
 				+ " 		   title, "
 				+ "       start_date, "
 				+ "        end_date, "
-				+ "        location, "
+				+ "        postcode, "
+				+ "			roadaddress, "
 				+ "      	animal, "
 				+ "        writer_id, "
 				+ "			info, "
@@ -284,7 +295,8 @@ public class RequestDao {
 				+ "title, "
 				+ "start_date, "
 				+ "end_date, "
-				+ "location, "
+				+ "postcode,"
+				+ "roadaddress, "
 				+ "animal, "
 				+ "writer_id, "
 				+ "info, "
@@ -295,7 +307,8 @@ public class RequestDao {
 				+ " 		   title, "
 				+ "       start_date, "
 				+ "        end_date, "
-				+ "        location, "
+				+ "        postcode,"
+				+ "			roadaddress, "
 				+ "      	animal, "
 				+ "        writer_id, "
 				+ "			info, "
@@ -308,7 +321,7 @@ public class RequestDao {
 				+ "            DESC) "
 				+ "        rn "
 				+ "  FROM request "
-				+ "WHERE location LIKE ? "
+				+ "WHERE roadaddress LIKE ? "
 				+ ") WHERE rn  BETWEEN ? AND ? ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -334,7 +347,7 @@ public class RequestDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT COUNT(*) FROM request WHERE location LIKE ?";
+		String sql = "SELECT COUNT(*) FROM request WHERE roadaddress LIKE ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -388,7 +401,8 @@ public class RequestDao {
 				+ "title, "
 				+ "start_date, "
 				+ "end_date, "
-				+ "location, "
+				+ "postcode,"
+				+ "roadaddress, "
 				+ "animal, "
 				+ "writer_id, "
 				+ "info, "
@@ -399,7 +413,8 @@ public class RequestDao {
 				+ " 		   title, "
 				+ "       start_date, "
 				+ "        end_date, "
-				+ "        location, "
+				+ "        postcode,"
+				+ "			roadaddress, "
 				+ "      	animal, "
 				+ "        writer_id, "
 				+ "			info, "

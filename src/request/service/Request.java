@@ -12,27 +12,27 @@ public class Request {
 	private String animal;
 	private Date startDate;
 	private Date endDate;
-	private String local;
+	private String postcode;
+	private String roadAddress;
 	private String info;
 	private Integer quoteCnt;
 	private Integer complete;
-	
-
-
-
+		
 	public Request(Integer reqNo, String writer_id, String title, String animal, Date startDate, Date endDate,
-			String local, String info, Integer quoteCnt, Integer complete) {
+			String postcode, String roadAddress, String info, Integer quoteCnt, Integer complete) {
 		this.reqNo = reqNo;
 		this.writer_id = writer_id;
 		this.title = title;
 		this.animal = animal;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.local = local;
+		this.postcode = postcode;
+		this.roadAddress = roadAddress;
 		this.info = info;
 		this.quoteCnt = quoteCnt;
 		this.complete = complete;
 	}
+	
 	
 	public Integer getReqNo() {
 		return reqNo;
@@ -70,12 +70,21 @@ public class Request {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public String getLocal() {
-		return local;
+
+	public String getPostcode() {
+		return postcode;
 	}
-	public void setLocal(String local) {
-		this.local = local;
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
 	}
+	public String getRoadAddress() {
+		return roadAddress;
+	}
+	public void setRoadAddress(String roadAddress) {
+		this.roadAddress = roadAddress;
+	}
+
+
 	public String getInfo() {
 		return info;
 	}

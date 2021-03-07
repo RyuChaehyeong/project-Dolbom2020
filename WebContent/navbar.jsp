@@ -44,6 +44,9 @@ li {
 			<li class="nav-item"><a class="nav-link"
 				href="${root }/request/write.do"> <i
 					class="fas fa-pencil-alt"></i> 작성하기 </a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="${root }/preview.jsp"> <i
+					class="fas fa-pencil-alt"></i> 공지사항 </a></li>
 		</ul>
 
 		<u:notLogin>

@@ -80,6 +80,7 @@ public class ReadMypageHandler implements CommandHandler{
 			if (contractPageNo != null) {
 				cpageNo = Integer.parseInt(contractPageNo);
 			}
+			
 			ContractPage contractPage = listConService.getContractProvider(cpageNo, userId);
 			req.setAttribute("contractPage", contractPage);
 			
